@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sensor_host_id: 1
+  sensor_type_id: 1
+
+two:
+  sensor_host_id: 1
+  sensor_type_id: 1
