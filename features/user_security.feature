@@ -23,4 +23,12 @@ Feature: User security
     Then I should not be redirected
     And I should see "Email"
     And I should see "Password"
-    
+
+  @wip
+  Scenario: Access root page as a user
+    Given I am on the homepage
+
+  @wip
+  Scenario: Access the login page as a user
+    Given I am on the sign_in page
+
