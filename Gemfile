@@ -48,8 +48,12 @@ group :development do
   gem 'heroku'
 end
 
+group :test, :development do
+  gem 'rspec-rails'
+end
+
 group :test do
-  gem 'cucumber'
+  gem 'cucumber-rails'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'factory_girl_rails'
@@ -59,6 +63,8 @@ group :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'execjs'
+  gem 'therubyracer'
 end
 
 group :staging, :production do
