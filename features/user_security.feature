@@ -24,11 +24,32 @@ Feature: User security
     And I should see "Email"
     And I should see "Password"
 
-  @wip
-  Scenario: Access root page as a user
+  Scenario: Successfully access root page as a user
     Given I am on the homepage
+    And I am signed up as "email@example.com"
+    When I sign in as "email@example.com"
+    Then I should be redirected to /dashboard
+    And I should be signed in
 
-  @wip
   Scenario: Access the login page as a user
     Given I am on the sign_in page
+    And I am signed up as "email@example.com"
+    When I sign in as "email@example.com"
+    Then I should be redirected to /dashboard
+    And I should be signed in
+
+  Scenario: Fail to sign as user from root page
+    Given I am on the homepage
+    And I am signed up as "email@example.com"
+    When I sign in as "failbus@example.com"
+    Then I should be signed out
+    And I should not be redirected
+
+  Scenario: Fail to sign as user from sign_in page
+    Given I am on the sign_in page
+    And I am signed up as "email@example.com"
+    When I sign in as "failbus@example.com"
+    Then I should be signed out
+    And I should not be redirected
+
 

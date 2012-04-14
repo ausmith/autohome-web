@@ -18,6 +18,11 @@ Then /^I should not be redirected$/ do
   page.driver.status_code.should == 200
 end
 
+Then /^I should be redirected to (.+)$/ do |page|
+  current_path.should == page
+end
+
+
 Then /^I should see "([^"]*)"$/ do |search|
   page.should have_content(search)
 end

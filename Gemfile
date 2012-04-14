@@ -48,7 +48,7 @@ group :development do
   gem 'heroku'
 end
 
-group :test, :development do
+group :development, :test do
   gem 'rspec-rails'
 end
 

@@ -1,5 +1,11 @@
 AutohomeWeb::Application.routes.draw do
-  root :to => 'Clearance::Sessions#new'
+  match 'session/new' => 'Sessions#new', :via => :get
+  match 'session' => 'Sessions#create', :via => :post
+  match 'session' => 'Sessions#destroy', :via => :delete
+
+  match "dashboard" => "dashboard#index"
+
+  root :to => 'Sessions#new'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
