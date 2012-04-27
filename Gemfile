@@ -34,13 +34,14 @@ gem 'capistrano'
 
 gem 'ledermann-rails-settings', :require => 'rails-settings'
 gem 'clearance'
-gem 'formtastic'
+gem 'simple_form'
 gem 'flutie'
 gem 'bourbon'
 gem 'paperclip'
 gem 'thin'
 gem 'sass'
 gem 'high_voltage'
+gem 'twitter-bootstrap-rails'
 
 
 group :development do

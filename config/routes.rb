@@ -1,7 +1,20 @@
 AutohomeWeb::Application.routes.draw do
-  match 'session/new' => 'Sessions#new', :via => :get
+  match 'session/new' => 'Sessions#new', :via => :get, :as => 'new_session'
   match 'session' => 'Sessions#create', :via => :post
   match 'session' => 'Sessions#destroy', :via => :delete
+  match 'sign_in' => 'Sessions#new', :via => :get
+  match 'sign_out' => 'Sessions#destroy', :via => :delete
+
+  match 'passwords/new' => 'Passwords#new', :via => :get, :as => 'new_password'
+  match 'passwords' => 'Passwords#create', :via => :post
+  match 'users/:user_id/passwords' => 'Passwords#create', :via => :post, :as => 'user_password'
+  match 'users/:user_id/passwords' => 'Passwords#update', :via => :put
+  match 'users/:user_id/passwords/edit' => 'Passwords#edit', :via => :get, :as => 'edit_user_password'
+
+
+  match 'sign_up' => 'Users#new'
+  match 'users'   => 'Users#create', :via => :post
+
 
   match "dashboard" => "dashboard#index"
 
