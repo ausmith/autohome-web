@@ -1,6 +1,6 @@
 require 'clearance/testing'
 
-Given /^(?:|I )am on the (.+)$/ do |page_name|
+Given /^(?:|I )am on (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
@@ -10,6 +10,14 @@ end
 
 Given /^I am logged in$/ do
   page.should have_content("Sign out")
+end
+
+When /^I fill in "([^"]*)" with "([^"]*)"$/ do |key, value|
+  fill_in(key, :with => value)
+end
+
+When /^I press the "([^"]*)" button$/ do |element|
+  click_button(element)
 end
 
 # "Then" statements
@@ -24,5 +32,17 @@ end
 
 
 Then /^I should see "([^"]*)"$/ do |search|
-  page.should have_content(search)
+  page.should have_content( search.gsub( /<.+?>/, '') )
+end
+
+Then /^I should not see "([^"]*)"$/ do |search|
+  page.should_not have_content( search.gsub( /<.+?>/, '') )
+end
+
+Then /^I should be on (.+)$/ do |page|
+  current_path.should == path_to(page)
+end
+
+Then /^show me the page$/ do
+  save_and_open_page
 end

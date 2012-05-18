@@ -1,4 +1,6 @@
 AutohomeWeb::Application.routes.draw do
+  resources :rooms
+
   match 'session/new' => 'Sessions#new', :via => :get, :as => 'new_session'
   match 'session' => 'Sessions#create', :via => :post
   match 'session' => 'Sessions#destroy', :via => :delete
