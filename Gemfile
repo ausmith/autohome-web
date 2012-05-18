@@ -67,6 +67,7 @@ group :test do
   gem 'execjs'
   gem 'therubyracer'
   gem 'pickle'
+  gem 'simplecov'
 end
 
 group :staging, :production do
