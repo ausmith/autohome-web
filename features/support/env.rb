@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter '/test/'
   if ENV['CC_BUILD_ARTIFACTS']
-    root ENV['CC_BUILD_ARTIFACTS']
+    coverage_dir File.join('../../../../../../../../../../../../../', ENV['CC_BUILD_ARTIFACTS'])
   end
 end
 
