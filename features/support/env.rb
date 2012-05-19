@@ -1,8 +1,9 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/test/'
+  add_filter '/vendor/'
   if ENV['CC_BUILD_ARTIFACTS']
-    coverage_dir File.join('../../../../../../../../../../../../../', ENV['CC_BUILD_ARTIFACTS'])
+    # Not crazy about doing this, but until I think of a better way, this will have to do. 
+    coverage_dir File.join('../../../../../../../../../../../../../', ENV['CC_BUILD_ARTIFACTS'], 'coverage')
   end
 end
 
