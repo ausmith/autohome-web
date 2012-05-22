@@ -30,6 +30,8 @@ module NavigationHelpers
     #
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
+    when /^the path "(.+?)"$/
+      $1
 
     when /(the )?home\s?page/
       '/'

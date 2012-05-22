@@ -51,6 +51,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  # Autotest FTW!
+  gem 'ZenTest'
+  gem 'autotest-rails'
 end
 
 group :test do

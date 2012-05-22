@@ -20,10 +20,18 @@ When /^I press the "([^"]*)" button$/ do |element|
   click_button(element)
 end
 
+When /^I follow "([^"]*)"$/ do |link|
+  click_link(link)
+end
+
 # "Then" statements
 
 Then /^I should not be redirected$/ do
   page.driver.status_code.should == 200
+end
+
+Then /^the page should not exist$/ do
+  page.driver.status_code.should == 404
 end
 
 Then /^I should be redirected to (.+)$/ do |page|

@@ -6,6 +6,11 @@ class RoomsController < ApplicationController
   end
 
   def show
+    @room = Room.find_by_id(params[:id])
+
+    unless @room
+      render_404("STATIC_Sorry, we were unable to find that room.")
+    end
   end
 
   def new
@@ -32,6 +37,22 @@ class RoomsController < ApplicationController
   end
 
   def update
+    @room = Room.find_by_id(params[:id])
+
+    if @room
+      # Found the room, now update it!
+      if @room.update_attributes(params[:room])
+        # Success!
+        redirect_to @room, :notice => "STATIC_Room has been updated."
+      else
+        #Failure!
+        flash[:error] = "STATIC_Room has not been updated."
+        render :action => "edit"
+      end
+
+    else
+      render_404("STATIC_Sorry, we were unable to find that room.")
+    end
   end
 
   def destroy
