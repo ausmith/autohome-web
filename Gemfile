@@ -1,21 +1,23 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.2.10'
 
 # Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
 
-gem 'json'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platforms => :ruby
+
   gem 'uglifier', '>= 1.0.3'
-  gem 'compass-rails'
 end
 
 gem 'jquery-rails'
@@ -23,57 +25,55 @@ gem 'jquery-rails'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the web server
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
 # gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug'
+# gem 'debugger'
 
-gem 'ledermann-rails-settings', :require => 'rails-settings'
-gem 'clearance'
-gem 'simple_form'
-gem 'flutie'
-gem 'bourbon'
-gem 'paperclip'
-gem 'thin'
-gem 'sass'
-gem 'high_voltage'
-gem 'twitter-bootstrap-rails'
+gem 'ledermann-rails-settings', :require => 'rails-settings' # Key-value based settings in the DB
+gem 'simple_form'  # Creating forms
+gem 'devise'       # Authentication
+gem 'bourbon'      # Scss pre-made styles. Could be useful; not 100% if we need this.
+#gem 'paperclip'   # Attaching files. Not sure if we need this
+gem 'sass'         # SASS CSS language
+gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
+gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 
 
 group :development do
-  gem 'email_spec'
-  gem 'heroku'
+  gem 'thin' # A better DEV server
 end
 
 group :development, :test do
+  gem 'email_spec'
   gem 'rspec-rails'
-  # Autotest FTW!
   gem 'ZenTest'
   gem 'autotest-rails'
 end
 
 group :test do
-  gem 'cucumber-rails'
-  gem 'capybara'
-  gem 'capybara-webkit'
-  gem 'factory_girl_rails'
-  gem 'timecop'
-  gem 'email_spec'
-  gem 'bourne'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers'
-  gem 'launchy'
-  gem 'execjs'
-  gem 'therubyracer'
-  gem 'pickle'
-  gem 'simplecov'
+  gem 'cucumber-rails'     # Cucumber testing engine
+  gem 'capybara'           # Testing web interfaces
+  gem 'capybara-webkit'    # Testing Javascript a headless browser
+  gem 'factory_girl_rails' # A replacement for fixtures (which kinda suck)
+  gem 'timecop'            # Testing time-dependent code
+  gem 'database_cleaner'   # Cleaning DB between tests
+  gem 'shoulda-matchers'   # Rspec-compatible one-liners to test common Rails functionality
+  gem 'launchy'            # I don't think we need this
+  gem 'execjs'             # Run Javascript from Ruby code
+  gem 'therubyracer'       # V8 Javascript interpreter for Ruby
+  gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
+  gem 'simplecov'          # Code coverage
 end
 
 group :staging, :production do
-  gem 'airbrake'
-  gem 'newrelic_rpm'
+  gem 'airbrake'           # Error tracking
+  gem 'newrelic_rpm'       # Performance tracking
 end
