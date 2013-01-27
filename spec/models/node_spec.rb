@@ -26,11 +26,22 @@ describe Node do
   end
 
   it "has a valid status" do
+    # Supply all the valid ones
     FactoryGirl.build(:node, :status => Node.status()[:active]).should be_valid
     FactoryGirl.build(:node, :status => Node.status()[:taken_offline]).should be_valid
     FactoryGirl.build(:node, :status => Node.status()[:inactive]).should be_valid
-    FactoryGirl.build(:node, :status => Node.status()[:error]).should be_valid 
+    FactoryGirl.build(:node, :status => Node.status()[:error]).should be_valid
+
+    # Chuck in some bad values for good measure
+    FactoryGirl.build(:node, :status => nil).should_not be_valid
+    FactoryGirl.build(:node, :status => 0).should_not be_valid
+    FactoryGirl.build(:node, :status => -100).should_not be_valid
+    FactoryGirl.build(:node, :status => "failbus").should_not be_valid
+    FactoryGirl.build(:node, :status => "50").should_not be_valid
   end
 
-  it "is attached to a room"
+  it "is attached to a room" do
+    # TODO: After the Room scaffold is done
+    pending "We can't do this until the Room scaffold is built"
+  end
 end
