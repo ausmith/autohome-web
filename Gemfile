@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'less-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -49,13 +50,20 @@ gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 
 group :development do
   gem 'thin' # A better DEV server
+  gem 'guard'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
+  gem 'growl'
 end
 
 group :development, :test do
+  gem 'faker'
+  gem 'rspec'
   gem 'email_spec'
   gem 'rspec-rails'
   gem 'ZenTest'
   gem 'autotest-rails'
+  gem 'rb-inotify', '~> 0.8.8'
 end
 
 group :test do
