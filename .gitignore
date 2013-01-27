@@ -4,5 +4,6 @@ log/*.log
 tmp/
 .sass-cache/
 *.swp
+*.swo
 coverage
 .DS_Store
