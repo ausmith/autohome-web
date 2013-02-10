@@ -25,7 +25,7 @@ describe NodesController do
   # update the return value of this method accordingly.
   def valid_attributes
     { "mac_address" => "AA:BB:CC:DD:EE:FF",
-      "status" => 0,
+      "status" => Node.status().values[Random.rand(Node.status().size)],
       "take_offline" => false }
   end
 

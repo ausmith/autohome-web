@@ -7,7 +7,7 @@ FactoryGirl.define do
   factory :node do
     mac_address Faker::Base.regexify(/[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/)
     ip_address Faker::Internet.ip_v4_address
-    status 1
+    status Node.status().values[Random.rand(Node.status().size)]
     take_offline false
     last_online Time.now.getutc
     room_id Random.rand(100)
