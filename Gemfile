@@ -54,6 +54,9 @@ group :development do
   gem 'guard-cucumber'
   gem 'guard-rspec'
   gem 'growl'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :development, :test do
@@ -64,6 +67,7 @@ group :development, :test do
   gem 'ZenTest'
   gem 'autotest-rails'
   gem 'rb-inotify', '~> 0.8.8'
+  gem 'simplecov'          # Code coverage
 end
 
 group :test do
@@ -78,7 +82,6 @@ group :test do
   gem 'execjs'             # Run Javascript from Ruby code
   gem 'therubyracer'       # V8 Javascript interpreter for Ruby
   gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
-  gem 'simplecov'          # Code coverage
 end
 
 group :staging, :production do
