@@ -5,6 +5,7 @@
     <%= f.input :mac_address %>
     <%= f.input :status %>
     <%= f.input :take_offline %>
+    <%= f.association :rooms, :label => "DEVTEXT_Associated Rooms", :as => :check_boxes %>
   </div>
 
   <div class="form-actions">
