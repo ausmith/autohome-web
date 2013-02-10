@@ -7,6 +7,14 @@ class User < ActiveRecord::Base
          :timoutable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :admin
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :admin, :first_name, :last_name
   # attr_accessible :title, :body
+
+  def display_name
+    self[first_name] || self[email]
+    #if first_name == nil
+    #  return :email
+    #end
+  end
+
 end
