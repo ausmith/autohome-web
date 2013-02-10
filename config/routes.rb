@@ -1,13 +1,9 @@
 AutohomeWeb::Application.routes.draw do
   resources :rooms
-
-
+  resources :nodes
   devise_for :users
 
-  #devise_for :users
-  resources :nodes
-
- match  "dashboard" => 'dashboard#index'
+  match  "dashboard" => 'dashboard#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

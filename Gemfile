@@ -66,8 +66,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'ZenTest'
   gem 'autotest-rails'
-  gem 'rb-inotify', '~> 0.8.8'
   gem 'simplecov'          # Code coverage
+  gem 'webrat'
 end
 
 group :test do
