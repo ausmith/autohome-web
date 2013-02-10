@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(:version => 20130210213049) do
     t.datetime "updated_at",                      :null => false
   end
 
+  create_table "nodes_rooms", :force => true do |t|
+    t.integer "room_id", :null => false
+    t.integer "node_id", :null => false
+  end
+
   create_table "rooms", :force => true do |t|
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false

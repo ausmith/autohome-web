@@ -26,8 +26,12 @@
 </p>
 
 <p>
-  <b>Room:</b>
-  <%= @node.room_id %>
+<b>Associated Rooms:</b>
+  <% if @node.rooms %>
+    <% @node.rooms.each do |room| %>
+      <li><%= room.name %></li>
+    <% end %>
+  <% end %>
 </p>
 
 
