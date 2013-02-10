@@ -5,11 +5,7 @@ Feature: a user wants to log in
 	So that I can view my dashboard
 	
 	Scenario: a user logs in
-		Given I am registered as "user@example.com" "password"
-		When I go to the logon page
-		And I enter "username" into "username" field
-		And I enter "password" into "password" field
-		And I click the "logon" button
+		Given I am registered as "user@example.com" with password "password"
+		When I logon as "user@example.com" with password "password"
 		Then I should be on the dashboard
 		And I should see "Welcome to your dashboard."
-		And I should have a status code of 200
