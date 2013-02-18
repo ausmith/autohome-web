@@ -50,6 +50,7 @@ gem 'airbrake'           # Error tracking
 
 
 group :development do
+  gem 'spork'
   gem 'thin' # A better DEV server
   gem 'guard'
   gem 'guard-cucumber'
