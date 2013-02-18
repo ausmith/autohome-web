@@ -46,6 +46,7 @@ gem 'bourbon'      # Scss pre-made styles. Could be useful; not 100% if we need 
 gem 'sass'         # SASS CSS language
 gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
 gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
+gem 'airbrake'           # Error tracking
 
 
 group :development do
@@ -85,6 +86,5 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'airbrake'           # Error tracking
   gem 'newrelic_rpm'       # Performance tracking
 end

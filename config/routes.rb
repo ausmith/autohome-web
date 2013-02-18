@@ -1,4 +1,7 @@
 AutohomeWeb::Application.routes.draw do
+  resources :data_types
+
+
   resources :rooms
   resources :nodes
   devise_for :users
