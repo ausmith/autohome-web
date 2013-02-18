@@ -18,7 +18,10 @@ class User < ActiveRecord::Base
   
   # Prevents original user ("super admin") from being removed from the user table
   def prevent_super_admin_destroy
-    errors.add :base, "Cannot delete super admin." unless id != 1
+    if id == 1
+      errors.add :base, "Cannot delete super admin."
+      return false
+    end
   end
 
 end
