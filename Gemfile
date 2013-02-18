@@ -61,6 +61,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'faker'
   gem 'rspec'
   gem 'email_spec'

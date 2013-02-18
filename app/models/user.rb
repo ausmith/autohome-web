@@ -13,10 +13,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   def display_name
-    self[first_name] || self[email]
-    #if first_name == nil
-    #  return :email
-    #end
+    self[:first_name] || self[:email]
   end
   
   # Prevents original user ("super admin") from being removed from the user table
