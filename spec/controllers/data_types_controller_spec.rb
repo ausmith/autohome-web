@@ -19,12 +19,20 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe DataTypesController do
+  before(:each) do
+    # Sign in as a user first
+    u = User.find_by_id( 1 )
+    u.should_not be_nil
+    sign_in u
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # DataType. As you add validations to DataType, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "name" => "MyString" }
+    { "name" => "My Data Type Name",
+      "unit" => "My Unit"
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -37,7 +45,8 @@ describe DataTypesController do
   describe "GET index" do
     it "assigns all data_types as @data_types" do
       data_type = DataType.create! valid_attributes
-      get :index, {}, valid_session
+      get :index
+      response.status.should be(200)
       assigns(:data_types).should eq([data_type])
     end
   end
@@ -45,14 +54,14 @@ describe DataTypesController do
   describe "GET show" do
     it "assigns the requested data_type as @data_type" do
       data_type = DataType.create! valid_attributes
-      get :show, {:id => data_type.to_param}, valid_session
+      get :show, {:id => data_type.to_param}
       assigns(:data_type).should eq(data_type)
     end
   end
 
   describe "GET new" do
     it "assigns a new data_type as @data_type" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:data_type).should be_a_new(DataType)
     end
   end
@@ -60,7 +69,7 @@ describe DataTypesController do
   describe "GET edit" do
     it "assigns the requested data_type as @data_type" do
       data_type = DataType.create! valid_attributes
-      get :edit, {:id => data_type.to_param}, valid_session
+      get :edit, {:id => data_type.to_param}
       assigns(:data_type).should eq(data_type)
     end
   end
@@ -69,18 +78,18 @@ describe DataTypesController do
     describe "with valid params" do
       it "creates a new DataType" do
         expect {
-          post :create, {:data_type => valid_attributes}, valid_session
+          post :create, {:data_type => valid_attributes}
         }.to change(DataType, :count).by(1)
       end
 
       it "assigns a newly created data_type as @data_type" do
-        post :create, {:data_type => valid_attributes}, valid_session
+        post :create, {:data_type => valid_attributes}
         assigns(:data_type).should be_a(DataType)
         assigns(:data_type).should be_persisted
       end
 
       it "redirects to the created data_type" do
-        post :create, {:data_type => valid_attributes}, valid_session
+        post :create, {:data_type => valid_attributes}
         response.should redirect_to(DataType.last)
       end
     end
@@ -89,14 +98,14 @@ describe DataTypesController do
       it "assigns a newly created but unsaved data_type as @data_type" do
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        post :create, {:data_type => { "name" => "invalid value" }}, valid_session
+        post :create, {:data_type => { "name" => "invalid value" }}
         assigns(:data_type).should be_a_new(DataType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        post :create, {:data_type => { "name" => "invalid value" }}, valid_session
+        post :create, {:data_type => { "name" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -111,18 +120,18 @@ describe DataTypesController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         DataType.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "MyString" }}, valid_session
+        put :update, {:id => data_type.to_param, :data_type => { "name" => "MyString" }}
       end
 
       it "assigns the requested data_type as @data_type" do
         data_type = DataType.create! valid_attributes
-        put :update, {:id => data_type.to_param, :data_type => valid_attributes}, valid_session
+        put :update, {:id => data_type.to_param, :data_type => valid_attributes}
         assigns(:data_type).should eq(data_type)
       end
 
       it "redirects to the data_type" do
         data_type = DataType.create! valid_attributes
-        put :update, {:id => data_type.to_param, :data_type => valid_attributes}, valid_session
+        put :update, {:id => data_type.to_param, :data_type => valid_attributes}
         response.should redirect_to(data_type)
       end
     end
@@ -132,7 +141,7 @@ describe DataTypesController do
         data_type = DataType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}
         assigns(:data_type).should eq(data_type)
       end
 
@@ -140,7 +149,7 @@ describe DataTypesController do
         data_type = DataType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}
         response.should render_template("edit")
       end
     end
@@ -150,13 +159,13 @@ describe DataTypesController do
     it "destroys the requested data_type" do
       data_type = DataType.create! valid_attributes
       expect {
-        delete :destroy, {:id => data_type.to_param}, valid_session
+        delete :destroy, {:id => data_type.to_param}
       }.to change(DataType, :count).by(-1)
     end
 
     it "redirects to the data_types list" do
       data_type = DataType.create! valid_attributes
-      delete :destroy, {:id => data_type.to_param}, valid_session
+      delete :destroy, {:id => data_type.to_param}
       response.should redirect_to(data_types_url)
     end
   end
