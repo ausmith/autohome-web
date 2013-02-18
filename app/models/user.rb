@@ -11,10 +11,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   def display_name
-    self[first_name] || self[email]
-    #if first_name == nil
-    #  return :email
-    #end
+    self[:first_name] || self[:email]
   end
 
 end
