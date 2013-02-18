@@ -6,6 +6,6 @@ describe User do
     u.should_not be_nil
 
     u.destroy
-    User.find_by_id( 1 ).should_not be_nil
+    User.find_by_id( 1 ).should_not be_nil 
   end
 end
