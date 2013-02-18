@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe DashboardController do
-
   describe "GET 'index'" do 
     it "redirects to the sign_in page when not logged in" do
       # We're not signed in; redirect
