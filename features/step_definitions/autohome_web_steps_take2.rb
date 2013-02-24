@@ -8,6 +8,7 @@ Given /^I am registered as "(.*?)" with password "(.*?)"$/ do |username, passwor
     
     if( u.valid? )
       u.save
+      User.first.confirm!
     end
     
   end
