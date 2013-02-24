@@ -13,3 +13,7 @@ en:
     login: "Log In"
     logout: "Log Out"
     upreferences: "User Preferences"
+  rooms:
+    name: "Name"
+    error_name_too_short: "Name must be at least 2 characters long."
+    error_name_too_long: "Name must be at most 128 characters long."
