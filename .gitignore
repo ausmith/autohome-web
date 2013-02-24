@@ -7,3 +7,4 @@ tmp/
 *.swo
 coverage
 .DS_Store
+webrat.log

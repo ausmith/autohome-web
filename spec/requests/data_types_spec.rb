@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe "Rooms" do
-  describe "GET /rooms" do
+describe "DataTypes" do
     it "redirects to login when not logged in" do
-      get rooms_path
+      get data_types_path
       response.status.should be(302)
     end
 
@@ -13,8 +12,7 @@ describe "Rooms" do
       fill_in 'Password', :with => 'password'
       click_button 'Sign in'
 
-      get rooms_path
+      get data_types_path
       response.status.should be(200)
     end
-  end
 end

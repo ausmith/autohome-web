@@ -1,11 +1,22 @@
 require 'spec_helper'
 
 describe DashboardController do
-
-  describe "GET 'index'" do
-    it "returns http success" do
+  describe "GET 'index'" do 
+    it "redirects to the sign_in page when not logged in" do
+      # We're not signed in; redirect
       get 'index'
-      response.should be_success
+      response.status.should be(302)
+    end
+
+    it "returns http success when logged in" do
+      # Get user, and sign them in
+      @user = User.find_by_id( 1 )
+      @user.should_not be_nil
+      sign_in @user
+
+      # Navigate to page
+      get 'index'
+      response.status.should be(200)
     end
   end
 

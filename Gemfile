@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.10'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 
 
@@ -23,16 +20,6 @@ end
 gem 'jquery-rails'
 gem 'less-rails'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
 gem 'capistrano'
 
 # To use debugger
@@ -46,9 +33,11 @@ gem 'bourbon'      # Scss pre-made styles. Could be useful; not 100% if we need 
 gem 'sass'         # SASS CSS language
 gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
 gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
+gem 'airbrake'           # Error tracking
 
 
 group :development do
+  gem 'spork'
   gem 'thin' # A better DEV server
   gem 'guard'
   gem 'guard-cucumber'
@@ -60,6 +49,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'rb-inotify', '~> 0.8.8'
   gem 'faker'
   gem 'rspec'
   gem 'email_spec'
@@ -85,6 +75,5 @@ group :test do
 end
 
 group :staging, :production do
-  gem 'airbrake'           # Error tracking
   gem 'newrelic_rpm'       # Performance tracking
 end

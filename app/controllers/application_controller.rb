@@ -3,8 +3,17 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :authenticate_user!
+  layout :get_layout
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def get_layout
+    if !user_signed_in?
+      get_layout = "logged_out"
+    else
+      get_layout = "application"
+    end
   end
 end
