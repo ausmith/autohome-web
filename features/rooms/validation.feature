@@ -41,3 +41,14 @@ Feature: Validate Rooms
     Then I should see "Please review the problems below:"
     And I should see "Name must be at most 128 characters long."
 
+  Scenario: Name is not unique
+    Given I am registered as "user@example.com" with password "password"
+    And I logon as "user@example.com" with password "password"
+    And I am on the create_room page
+    When I enter "unique" in "Name"
+    And I click the button "Create Room"
+    And I am on the create_room page
+    And I enter "unique" in "Name"
+    And I click the button "Create Room"
+    Then I should see "Please review the problems below:"
+    And I should see "has already been taken"

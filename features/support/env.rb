@@ -6,6 +6,7 @@ require 'spork'
 Spork.prefork do
   require 'cucumber/rails'
   Capybara.default_selector = :css
+  World FactoryGirl::Syntax::Methods
 
   ActionController::Base.allow_rescue = false
 

@@ -13,6 +13,13 @@ en:
     login: "Log In"
     logout: "Log Out"
     upreferences: "User Preferences"
+
+    error_first_name_blank: "First name cannot be blank."
+    error_first_name_too_short: "First name must be at least 2 characters long."
+    error_first_name_too_long: "First name must be at most 32 characters long."
+    error_last_name_blank: "Last name cannot be blank."
+    error_last_name_too_short: "Last name must be at least 2 characters long."
+    error_last_name_too_long: "Last name must be at most 32 characters long."
   rooms:
     name: "Name"
     error_name_too_short: "Name must be at least 2 characters long."
