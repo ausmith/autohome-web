@@ -1,0 +1,31 @@
+<h1>Listing sensor_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Data type</th>
+    <th>Pins used</th>
+    <th>Library file</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sensor_types.each do |sensor_type| %>
+  <tr>
+    <td><%= sensor_type.name %></td>
+    <td><%= sensor_type.description %></td>
+    <td><%= sensor_type.data_type_id %></td>
+    <td><%= sensor_type.pins_used %></td>
+    <td><%= sensor_type.library_file %></td>
+    <td><%= link_to 'Show', sensor_type %></td>
+    <td><%= link_to 'Edit', edit_sensor_type_path(sensor_type) %></td>
+    <td><%= link_to 'Destroy', sensor_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sensor type', new_sensor_type_path %>

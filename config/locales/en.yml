@@ -40,3 +40,13 @@ en:
     error_shorthand_unit_too_long: "Shorthand must be at most 8 characters long."
     error_longhand_unit_too_short: "Unit name must be at least 1 character long."
     error_longhand_unit_too_long: "Unit name must be at most 32 characters long."
+  sensor_types:
+    name: "Name"
+    description: "Description"
+    pins_used: "Number of Pins Used"
+    data_type: "Data Type"
+    name_too_short: "Name must be at least 2 characters long."
+    name_too_long: "Name must be at most 32 characters long."
+    library_file_too_long: "Library file must be at most 64 characters long."
+    library_file_bad_format: "Library file must end with \".rb\"."
+
