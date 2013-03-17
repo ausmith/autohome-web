@@ -1,16 +1,21 @@
 AutohomeWeb::Application.routes.draw do
+  match "admin" => "admin#index", :as => 'admin', :via => :get
 
-  resources :data_types
+  scope "/admin" do
+    resources :data_types
+    resources :rooms
+    resources :nodes
+  end
 
-  resources :rooms
-  resources :nodes
   # devise_for :users
-  devise_for :users, :controllers => { :registrations => "registrations" }                                           
-  #devise_for :users, :skip => [:registrations]#,:controllers => { :registrations => "registrations" }                                           
-   #   as :user do
-    #    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
-     #  put 'users' => 'devise/registrations#update', :as => 'user_registration'            
-      #end
+  devise_for :users, :controllers => { :registrations => "registrations" }
+  
+  match  "dashboard" => 'dashboard#index'
+
+  authenticated :user do
+      root :to => 'dashboard#index'
+  end
+  root :to => redirect('/users/sign_in')
 
   get "dashboard" => 'dashboard#index', :as => :dashboard
   

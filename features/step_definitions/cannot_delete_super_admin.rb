@@ -1,6 +1,6 @@
 When /^I ask to delete the super admin account$/ do
   if( (u = User.find_by_id(1)) != nil )
-    u.destroy
+    User.destroy(1)
   else
     puts "Error: No users existed."
   end
@@ -8,5 +8,5 @@ When /^I ask to delete the super admin account$/ do
 end
 
 Then /^the super admin account should still exist$/ do
-  User.find_by_id(1).should != nil
+  User.find_by_id(1).should_not be_nil
 end

@@ -5,8 +5,8 @@ class Room < ActiveRecord::Base
 
   validates :name, :uniqueness => true,
                    :length => { :minimum => 2,
-                                :too_short => "DEVTEXT_%{count} characters is the minimum allowed.",
+                                :too_short => I18n.t('rooms.error_name_too_short'),
                                 :maximum => 128,
-                                :too_long => "DEVTEXT_%{count} characters is the maximum allowed." },
+                                :too_long => I18n.t('rooms.error_name_too_long') },
                    :presence => true
 end

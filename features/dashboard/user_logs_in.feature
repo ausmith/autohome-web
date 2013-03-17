@@ -5,7 +5,6 @@ Feature: a user wants to log in
   I want to login
   So that I can view my dashboard
 
-  @wip
   Scenario: a user logs in
     Given I am registered as "user@example.com" with password "password"
     When I logon as "user@example.com" with password "password"
