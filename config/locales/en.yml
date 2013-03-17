@@ -5,9 +5,14 @@ en:
   name: "Autohome"
   hello: "Hey there, "
   nav:
+    admin: "Administration"
     nodes: "Nodes"
     rooms: "Rooms"
     settings: "System Settings"
+    data_types: "Data Types"
+  admin:
+    title: "Administration"
+    initial_setup: "Initial Setup"
   user:
     account: "Account"
     login: "Log In"
@@ -24,3 +29,14 @@ en:
     name: "Name"
     error_name_too_short: "Name must be at least 2 characters long."
     error_name_too_long: "Name must be at most 128 characters long."
+  data_types:
+    longhand_unit: "Unit Name"
+    shorthand_unit: "Shorthand"
+    button_create: "Create Data Type"
+    button_update: "Update Data Type"
+    msg_successfully_created: "Data type was successfully created."
+    msg_successfully_updated: "Data type was successfully updated."
+    error_shorthand_unit_too_short: "Shorthand must be at least 1 character long."
+    error_shorthand_unit_too_long: "Shorthand must be at most 32 characters long."
+    error_longhand_unit_too_short: "Unit name must be at least 1 character long."
+    error_longhand_unit_too_long: "Unit name must be at most 32 characters long."

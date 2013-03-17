@@ -1,2 +1,8 @@
-<h1>Admin#index</h1>
-<p>Find me in app/views/admin/index.html.erb</p>
+<h1><%= t('admin.title') %></h1>
+<h2><%= t('admin.initial_setup') %></h2>
+
+<ul>
+  <li><%= link_to t('nav.nodes'), nodes_path %></li>
+  <li><%= link_to t('nav.rooms'), rooms_path %></li>
+  <li><%= link_to t('nav.data_types'), data_types_path %></li>
+</ul>

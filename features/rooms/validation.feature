@@ -4,7 +4,6 @@ Feature: Validate Rooms
   As a registered user
   I want to create and manage rooms
 
-  @wip
   Scenario: All valid information
     Given I am registered as "user@example.com" with password "password"
     And I logon as "user@example.com" with password "password"

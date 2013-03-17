@@ -6,3 +6,12 @@ When /^I go to my profile edit page$/ do
   click_link "Account"
   click_link "Edit Profile"
 end
+
+Given /^I am on the create_data_type page$/ do
+  visit '/admin/data_types/new'
+end
+
+Given /^I am on the update_data_type page for "(.*?)"$/ do |name|
+  d = DataType.find_by_longhand_unit(name)
+  visit "/admin/data_types/#{d.id}/edit"
+end
