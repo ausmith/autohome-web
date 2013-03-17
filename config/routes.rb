@@ -1,4 +1,6 @@
 AutohomeWeb::Application.routes.draw do
+  get "admin/index"
+
   resources :data_types
 
 
