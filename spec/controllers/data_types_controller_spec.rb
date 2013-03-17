@@ -30,8 +30,8 @@ describe DataTypesController do
   # DataType. As you add validations to DataType, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "name" => "My Data Type Name",
-      "unit" => "My Unit"
+    { "longhand_unit" => "Celsius",
+      "shorthand_unit" => "C"
     }
   end
 
@@ -98,14 +98,14 @@ describe DataTypesController do
       it "assigns a newly created but unsaved data_type as @data_type" do
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        post :create, {:data_type => { "name" => "invalid value" }}
+        post :create, {:data_type => { "shorthand_unit" => "invalid value" }}
         assigns(:data_type).should be_a_new(DataType)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        post :create, {:data_type => { "name" => "invalid value" }}
+        post :create, {:data_type => { "shorthand_unit" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -119,8 +119,8 @@ describe DataTypesController do
         # specifies that the DataType created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        DataType.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "MyString" }}
+        DataType.any_instance.should_receive(:update_attributes).with({ "shorthand_unit" => "MyString" })
+        put :update, {:id => data_type.to_param, :data_type => { "shorthand_unit" => "MyString" }}
       end
 
       it "assigns the requested data_type as @data_type" do
@@ -141,7 +141,7 @@ describe DataTypesController do
         data_type = DataType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}
+        put :update, {:id => data_type.to_param, :data_type => { "shorthand_unit" => "invalid value" }}
         assigns(:data_type).should eq(data_type)
       end
 
@@ -149,7 +149,7 @@ describe DataTypesController do
         data_type = DataType.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         DataType.any_instance.stub(:save).and_return(false)
-        put :update, {:id => data_type.to_param, :data_type => { "name" => "invalid value" }}
+        put :update, {:id => data_type.to_param, :data_type => { "shorthand_unit" => "invalid value" }}
         response.should render_template("edit")
       end
     end

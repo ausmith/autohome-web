@@ -1,16 +1,19 @@
 AutohomeWeb::Application.routes.draw do
-  resources :data_types
+  match "admin" => "admin#index", :as => 'admin', :via => :get
 
+  scope "/admin" do
+    resources :data_types
+    resources :rooms
+    resources :nodes
+  end
 
-  resources :rooms
-  resources :nodes
   # devise_for :users
   devise_for :users, :controllers => { :registrations => "registrations" }
   
   match  "dashboard" => 'dashboard#index'
 
   authenticated :user do
-      root :to => 'home#index'
+      root :to => 'dashboard#index'
   end
   root :to => redirect('/users/sign_in')
 

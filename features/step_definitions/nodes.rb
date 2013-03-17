@@ -17,13 +17,13 @@ end
 Given /^I am on the node edit page for "(.*?)"$/ do |mac_address|
   node = Node.find_by_mac_address(mac_address)
 
-  visit "/nodes/#{node.id}/edit"
+  visit "/admin/nodes/#{node.id}/edit"
 end
 
 Given /^I am on the node page for "(.*?)"$/ do |mac_address|
   node = Node.find_by_mac_address(mac_address)
 
-  visit "/nodes/#{node.id}"
+  visit "/admin/nodes/#{node.id}"
 end
 
 Given /^I have node "(.*?)" attached to rooms "(.*?)"$/ do |node, rooms|

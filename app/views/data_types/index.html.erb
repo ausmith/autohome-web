@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>Longhand Name</th>
     <th>Unit</th>
     <th></th>
     <th></th>
@@ -11,8 +11,8 @@
 
 <% @data_types.each do |data_type| %>
   <tr>
-    <td><%= data_type.name %></td>
-    <td><%= data_type.unit %></td>
+    <td><%= data_type.longhand_unit %></td>
+    <td><%= data_type.shorthand_unit %></td>
     <td><%= link_to 'Show', data_type %></td>
     <td><%= link_to 'Edit', edit_data_type_path(data_type) %></td>
     <td><%= link_to 'Destroy', data_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
