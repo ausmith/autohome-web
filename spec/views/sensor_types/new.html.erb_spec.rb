@@ -18,7 +18,7 @@ describe "sensor_types/new" do
     assert_select "form[action=?][method=?]", sensor_types_path, "post" do
       assert_select "input#sensor_type_name[name=?]", "sensor_type[name]"
       assert_select "textarea#sensor_type_description[name=?]", "sensor_type[description]"
-      assert_select "input#sensor_type_data_type_id[name=?]", "sensor_type[data_type_id]"
+      assert_select "select#sensor_type_data_type_id[name=?]", "sensor_type[data_type_id]"
       assert_select "input#sensor_type_pins_used[name=?]", "sensor_type[pins_used]"
       assert_select "input#sensor_type_library_file[name=?]", "sensor_type[library_file]"
     end
