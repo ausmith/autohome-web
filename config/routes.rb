@@ -1,15 +1,28 @@
 AutohomeWeb::Application.routes.draw do
-  resources :data_types
 
+  resources :data_types
 
   resources :rooms
   resources :nodes
   # devise_for :users
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { :registrations => "registrations" }                                           
+  #devise_for :users, :skip => [:registrations]#,:controllers => { :registrations => "registrations" }                                           
+   #   as :user do
+    #    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+     #  put 'users' => 'devise/registrations#update', :as => 'user_registration'            
+      #end
+
+  get "dashboard" => 'dashboard#index', :as => :dashboard
   
-  match  "dashboard" => 'dashboard#index'
-
-
+  devise_scope :user do
+    get "users" => 'users#index', :as => :users
+    get "users/:id" => 'users#show', :as => :user
+    get "users/:id/edit" => 'registrations#edit', :as => :edit_user
+    put "users/:id" => 'registrations#update', :as => :update_user
+    #get "registrations/:id/edit" => 'registrations#edit', :as => :edit_registration
+    #put "registrations/:id" => 'registrations#update', :as => :update_registration
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

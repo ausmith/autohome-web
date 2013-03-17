@@ -1,0 +1,26 @@
+<h1>Users#show</h1>
+
+<table>
+	<tr>
+		<td>First Name:</td>
+		<td><%= @user.first_name %></td>
+	</tr>
+	<tr>
+		<td>Last Name:</td>
+		<td><%= @user.last_name %></td>
+	</tr>
+	<tr>
+		<td>Email:</td>
+		<td><%= @user.email %></td>
+	</tr>
+	<tr>
+		<td>Admin:</td>
+		<td><%= @user.admin ? "Yes" : "No" %></td>
+	</tr>
+
+<% if current_user.admin || @user.id == current_user.id %>
+	<tr>
+		<td><%= link_to "Edit Profile", edit_user_path(@user) %>
+	</tr>
+<% end %>
+</table>

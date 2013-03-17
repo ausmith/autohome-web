@@ -49,7 +49,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rb-inotify', '~> 0.8.8'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
   gem 'faker'
   gem 'rspec'
   gem 'email_spec'
