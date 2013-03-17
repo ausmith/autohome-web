@@ -18,7 +18,17 @@ AutohomeWeb::Application.routes.draw do
   end
   root :to => redirect('/users/sign_in')
 
-
+  get "dashboard" => 'dashboard#index', :as => :dashboard
+  
+  devise_scope :user do
+    get "users" => 'users#index', :as => :users
+    get "users/:id" => 'users#show', :as => :user
+    get "users/:id/edit" => 'registrations#edit', :as => :edit_user
+    put "users/:id" => 'registrations#update', :as => :update_user
+    #get "registrations/:id/edit" => 'registrations#edit', :as => :edit_registration
+    #put "registrations/:id" => 'registrations#update', :as => :update_registration
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

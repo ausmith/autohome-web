@@ -8,3 +8,7 @@ Then /^I should be on the dashboard$/ do
   
   [dashboard_path, root_path].should include current_path
 end
+
+Then /^I should be on the users page$/ do  
+  users_path.should include current_path
+end

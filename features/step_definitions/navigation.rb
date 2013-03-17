@@ -7,6 +7,11 @@ When /^I go to my profile edit page$/ do
   click_link "Edit Profile"
 end
 
+When /^I go to the profile edit page of "(.*?)"$/ do |email|
+  u = User.find_by_email(email)
+  visit "/users/#{u.id}/edit"
+end
+
 Given /^I am on the create_data_type page$/ do
   visit '/admin/data_types/new'
 end
