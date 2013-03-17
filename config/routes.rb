@@ -1,11 +1,12 @@
 AutohomeWeb::Application.routes.draw do
-  get "admin/index"
+  match "admin" => "admin#index", :as => 'admin', :via => :get
 
-  resources :data_types
+  scope "/admin" do
+    resources :data_types
+    resources :rooms
+    resources :nodes
+  end
 
-
-  resources :rooms
-  resources :nodes
   # devise_for :users
   devise_for :users, :controllers => { :registrations => "registrations" }
   
