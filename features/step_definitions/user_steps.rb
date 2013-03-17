@@ -1,6 +1,4 @@
 Given /^I am registered as "(.*?)" with password "(.*?)"$/ do |username, password|
-  visit '/users/sign_up'
-  
   if( User.find_by_email(username) == nil )    
     u = User.new
     u.email = username
@@ -11,6 +9,54 @@ Given /^I am registered as "(.*?)" with password "(.*?)"$/ do |username, passwor
       u.confirm!
     end
     
+  end
+  
+end
+
+Given /^I am registered as admin user "(.*?)" with password "(.*?)"$/ do |username, password|
+  u = User.find_by_email(username)
+  
+  if( u == nil )    
+    u = User.new
+    u.email = username
+    u.password = password
+    u.admin = true
+    
+    if( u.valid? )
+      u.save
+      u.confirm!
+    end
+  else
+    u.admin = true
+    
+    if( u.valid? )
+      u.save
+      u.confirm!
+    end
+  end
+  
+end
+
+Given /^I am registered as non-admin user "(.*?)" with password "(.*?)"$/ do |username, password|
+  u = User.find_by_email(username)
+  
+  if( u == nil )    
+    u = User.new
+    u.email = username
+    u.password = password
+    u.admin = false
+    
+    if( u.valid? )
+      u.save
+      u.confirm!
+    end
+  else
+    u.admin = false
+    
+    if( u.valid? )
+      u.save
+      u.confirm!
+    end
   end
   
 end

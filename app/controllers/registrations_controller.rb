@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :require_no_authentication, :only => [:new, :create, :cancel]
   before_filter :authenticate_scope!
-  before_filter :deny_access, :unless => :authorized_user?
+  before_filter :deny_access, :unless => :authorized_user?, :only => [:edit, :update]
   
   def new
     super
