@@ -12,7 +12,7 @@ AutohomeWeb::Application.routes.draw do
   match  "dashboard" => 'dashboard#index'
 
   authenticated :user do
-      root :to => 'home#index'
+      root :to => 'dashboard#index'
   end
   root :to => redirect('/users/sign_in')
 
