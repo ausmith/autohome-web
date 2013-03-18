@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :require_no_authentication, :only => [:new, :create, :cancel]
-  before_filter :authenticate_scope!
+  prepend_before_filter :authenticate_scope!
   before_filter :deny_access, :unless => :authorized_user?, :only => [:edit, :update]
   
   def new
@@ -29,8 +29,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def authorized_user?
-    @user = User.find_by_id(params[:id])
-    current_user.admin || current_user.id == @user.id
+    user = User.find_by_id(params[:id])
+    current_user != nil && ( current_user.admin || current_user.id == user.id )
   end
   
   def deny_access

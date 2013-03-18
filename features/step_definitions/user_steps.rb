@@ -3,6 +3,8 @@ Given /^I am registered as "(.*?)" with password "(.*?)"$/ do |username, passwor
     u = User.new
     u.email = username
     u.password = password
+    u.first_name = Faker::Name.first_name
+    u.last_name = Faker::Name.last_name
     
     if( u.valid? )
       u.save
@@ -20,11 +22,15 @@ Given /^I am registered as admin user "(.*?)" with password "(.*?)"$/ do |userna
     u = User.new
     u.email = username
     u.password = password
+    u.first_name = Faker::Name.first_name
+    u.last_name = Faker::Name.last_name
     u.admin = true
     
     if( u.valid? )
       u.save
       u.confirm!
+    else
+      puts "ERROR: Not valid"
     end
   else
     u.admin = true
@@ -32,6 +38,8 @@ Given /^I am registered as admin user "(.*?)" with password "(.*?)"$/ do |userna
     if( u.valid? )
       u.save
       u.confirm!
+    else
+      puts "ERROR: Not valid"
     end
   end
   
@@ -44,6 +52,8 @@ Given /^I am registered as non-admin user "(.*?)" with password "(.*?)"$/ do |us
     u = User.new
     u.email = username
     u.password = password
+    u.first_name = Faker::Name.first_name
+    u.last_name = Faker::Name.last_name
     u.admin = false
     
     if( u.valid? )
