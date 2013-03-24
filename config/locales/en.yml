@@ -10,6 +10,7 @@ en:
     rooms: "Rooms"
     settings: "System Settings"
     data_types: "Data Types"
+    sensor_types: "Sensor Types"
   admin:
     title: "Administration"
     initial_setup: "Initial Setup"
