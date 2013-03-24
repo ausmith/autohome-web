@@ -19,25 +19,42 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe SensorsController do
+  before(:each) do
+    # User Auth
+    u = User.find_by_id( 1 )
+    u.should_not be_nil
+    sign_in u
+
+    if SensorType.first == nil
+      FactoryGirl.create(:sensor_type)
+    end
+
+    if Node.first == nil
+      FactoryGirl.create(:node)
+    end
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Sensor. As you add validations to Sensor, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "name" => "MyString" }
+    {
+      "name" => "MyString",
+      "node_id" => Node.first.id,
+      "sensor_type_id" => SensorType.first.id,
+      "starting_pin" => 0,
+      "pin_type" => :Digital
+    }
   end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # SensorsController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
 
   describe "GET index" do
     it "assigns all sensors as @sensors" do
       sensor = Sensor.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {}
       assigns(:sensors).should eq([sensor])
     end
   end
@@ -45,14 +62,14 @@ describe SensorsController do
   describe "GET show" do
     it "assigns the requested sensor as @sensor" do
       sensor = Sensor.create! valid_attributes
-      get :show, {:id => sensor.to_param}, valid_session
+      get :show, {:id => sensor.to_param}
       assigns(:sensor).should eq(sensor)
     end
   end
 
   describe "GET new" do
     it "assigns a new sensor as @sensor" do
-      get :new, {}, valid_session
+      get :new, {}
       assigns(:sensor).should be_a_new(Sensor)
     end
   end
@@ -60,7 +77,7 @@ describe SensorsController do
   describe "GET edit" do
     it "assigns the requested sensor as @sensor" do
       sensor = Sensor.create! valid_attributes
-      get :edit, {:id => sensor.to_param}, valid_session
+      get :edit, {:id => sensor.to_param}
       assigns(:sensor).should eq(sensor)
     end
   end
@@ -69,18 +86,18 @@ describe SensorsController do
     describe "with valid params" do
       it "creates a new Sensor" do
         expect {
-          post :create, {:sensor => valid_attributes}, valid_session
+          post :create, {:sensor => valid_attributes}
         }.to change(Sensor, :count).by(1)
       end
 
       it "assigns a newly created sensor as @sensor" do
-        post :create, {:sensor => valid_attributes}, valid_session
+        post :create, {:sensor => valid_attributes}
         assigns(:sensor).should be_a(Sensor)
         assigns(:sensor).should be_persisted
       end
 
       it "redirects to the created sensor" do
-        post :create, {:sensor => valid_attributes}, valid_session
+        post :create, {:sensor => valid_attributes}
         response.should redirect_to(Sensor.last)
       end
     end
@@ -89,14 +106,14 @@ describe SensorsController do
       it "assigns a newly created but unsaved sensor as @sensor" do
         # Trigger the behavior that occurs when invalid params are submitted
         Sensor.any_instance.stub(:save).and_return(false)
-        post :create, {:sensor => { "name" => "invalid value" }}, valid_session
+        post :create, {:sensor => { "name" => "invalid value" }}
         assigns(:sensor).should be_a_new(Sensor)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         Sensor.any_instance.stub(:save).and_return(false)
-        post :create, {:sensor => { "name" => "invalid value" }}, valid_session
+        post :create, {:sensor => { "name" => "invalid value" }}
         response.should render_template("new")
       end
     end
@@ -111,18 +128,18 @@ describe SensorsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Sensor.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
-        put :update, {:id => sensor.to_param, :sensor => { "name" => "MyString" }}, valid_session
+        put :update, {:id => sensor.to_param, :sensor => { "name" => "MyString" }}
       end
 
       it "assigns the requested sensor as @sensor" do
         sensor = Sensor.create! valid_attributes
-        put :update, {:id => sensor.to_param, :sensor => valid_attributes}, valid_session
+        put :update, {:id => sensor.to_param, :sensor => valid_attributes}
         assigns(:sensor).should eq(sensor)
       end
 
       it "redirects to the sensor" do
         sensor = Sensor.create! valid_attributes
-        put :update, {:id => sensor.to_param, :sensor => valid_attributes}, valid_session
+        put :update, {:id => sensor.to_param, :sensor => valid_attributes}
         response.should redirect_to(sensor)
       end
     end
@@ -132,7 +149,7 @@ describe SensorsController do
         sensor = Sensor.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Sensor.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sensor.to_param, :sensor => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => sensor.to_param, :sensor => { "name" => "invalid value" }}
         assigns(:sensor).should eq(sensor)
       end
 
@@ -140,7 +157,7 @@ describe SensorsController do
         sensor = Sensor.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Sensor.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sensor.to_param, :sensor => { "name" => "invalid value" }}, valid_session
+        put :update, {:id => sensor.to_param, :sensor => { "name" => "invalid value" }}
         response.should render_template("edit")
       end
     end
@@ -150,13 +167,13 @@ describe SensorsController do
     it "destroys the requested sensor" do
       sensor = Sensor.create! valid_attributes
       expect {
-        delete :destroy, {:id => sensor.to_param}, valid_session
+        delete :destroy, {:id => sensor.to_param}
       }.to change(Sensor, :count).by(-1)
     end
 
     it "redirects to the sensors list" do
       sensor = Sensor.create! valid_attributes
-      delete :destroy, {:id => sensor.to_param}, valid_session
+      delete :destroy, {:id => sensor.to_param}
       response.should redirect_to(sensors_url)
     end
   end

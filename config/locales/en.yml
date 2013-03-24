@@ -11,6 +11,7 @@ en:
     settings: "System Settings"
     data_types: "Data Types"
     sensor_types: "Sensor Types"
+    sensors: "Sensors"
   admin:
     title: "Administration"
     initial_setup: "Initial Setup"
