@@ -28,3 +28,9 @@ Then /^I should be registered as "(.*?)" and not confirmed$/ do |username|
   u.should_not == nil
   u.confirmation_token.should_not == nil
 end
+
+Then /^I should be registered as "(.*?)" with password "(.*?)"$/ do |username, password|
+  u = User.find_by_email(username)
+  u.should_not == nil
+  u.password.should == password
+end

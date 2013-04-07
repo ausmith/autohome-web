@@ -24,3 +24,7 @@ Given /^I am on the update_data_type page for "(.*?)"$/ do |name|
   d = DataType.find_by_longhand_unit(name)
   visit "/admin/data_types/#{d.id}/edit"
 end
+
+When /^I logout$/ do
+  click_link "Log Out"
+end

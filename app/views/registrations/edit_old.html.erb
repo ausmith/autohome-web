@@ -1,0 +1,32 @@
+<h1>Registrations#edit</h1>
+
+<h2>Edit User</h2>
+
+<%= form_for(@user, :as => :user, :url => update_user_path(@user), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, :autofocus => true %></div>
+
+  <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
+  <% end %>
+
+  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+  <%= f.password_field :password, :autocomplete => "off" %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+	<% if current_user.admin %>
+	
+		<div><%= label_tag(:admin, "User is an admin") %><%= check_box_tag(:admin, , @user.admin) %></div>
+
+	<% end %>
+
+  		
+
+	
+
+  <div><%= f.submit "Update" %></div>
+<% end %>
