@@ -79,3 +79,12 @@ Feature: allow non-admin users to edit their own profile and admins to edit anyo
 		And I logon as "admin1@example.com" with password "password_new"
 		Then I should be on the dashboard
 		And I should be registered as non-admin user "admin1@example.com" with unconfirmed email "new_admin1@example.com"
+		
+	# Scenario: prevent admins from removing their own admin privileges
+	# 	Given I am registered as admin user "root@example.com" with password "password"
+	# 	When I logon as "root@example.com" with password "password"
+	# 	And I go to my profile edit page
+	# 	And I enter "password" in "Current password"
+	# 	And I uncheck the checkboxes "Admin"
+	# 	And I click the button "Update"
+	# 	Then I should be registered as admin user "root@example.com"

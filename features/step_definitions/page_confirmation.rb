@@ -12,3 +12,8 @@ end
 Then /^I should be on the users page$/ do  
   users_path.should include current_path
 end
+
+Then /^I should be on the profile edit page of "([^\"]*?)"$/ do |email|
+  u = User.find_by_email( email )
+  edit_user_path(u).should include current_path
+end
