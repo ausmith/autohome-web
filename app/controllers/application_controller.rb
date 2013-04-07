@@ -20,4 +20,11 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
      new_user_session_path
   end
+
+  def administrator_only_access
+    unless user_signed_in? && current_user.admin?
+      render :forbidden
+      return false
+    end
+  end
 end
