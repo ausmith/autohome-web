@@ -24,20 +24,32 @@ class RegistrationsController < Devise::RegistrationsController
     end
     self.resource = resource_class.to_adapter.get!(@user.to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
-        
-    if resource.update_attributes(resource_params)
-      if is_navigational_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
-        set_flash_message :notice, flash_key
+    
+    if @user == current_user
+      if resource.update_with_password(resource_params)   # updates profile but requires password confirmation
+        if is_navigational_format?
+          flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+            :update_needs_confirmation : :updated
+          set_flash_message :notice, flash_key
+        end
+        sign_in resource_name, resource, :bypass => true  # re-signs in user with new profile properties
+        respond_with resource, :location => after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        respond_with resource
       end
-      if @user == current_user      
-        sign_in resource_name, resource, :bypass => true
-      end
-      respond_with resource, :location => after_update_path_for(resource)
     else
-      clean_up_passwords resource
-      respond_with resource
+      if resource.update_attributes(resource_params)    # updates profile
+        if is_navigational_format?
+          flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+            :update_needs_confirmation : :updated
+          set_flash_message :notice, flash_key
+        end
+        respond_with resource, :location => after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        respond_with resource
+      end
     end
   end
 

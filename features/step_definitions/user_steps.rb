@@ -88,3 +88,29 @@ When /^I logon as "(.*?)" with password "(.*?)"$/ do |username, password|
   click_button 'Sign in'
 
 end
+
+Then /^I should be registered as admin user "([^\"]*?)"$/ do |email|
+  u = User.find_by_email( email )
+  u.should_not be_nil
+  u.admin.should == true
+end
+
+Then /^I should be registered as non-admin user "([^\"]*?)" with unconfirmed email "([^\"]*?)"$/ do |email, unconfirmed_email|
+  u = User.find_by_email( email )
+  u.should_not be_nil
+  u.admin.should == false
+  u.unconfirmed_email.should == unconfirmed_email
+end
+
+Then /^I should be registered as non-admin user "([^\"]*?)"$/ do |email|
+  u = User.find_by_email( email )
+  u.should_not be_nil
+  u.admin.should == false 
+end
+
+Then /^I should be registered as admin user "([^\"]*?)" with unconfirmed email "([^\"]*?)"$/ do |email, unconfirmed_email|
+  u = User.find_by_email( email )
+  u.should_not be_nil
+  u.admin.should == true
+  u.unconfirmed_email.should == unconfirmed_email
+end

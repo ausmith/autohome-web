@@ -8,7 +8,9 @@
   <%= f.input :email %>
 
   <% if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
+
     <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
+
   <% end %>
 
   <%= f.input :password, :hint => "(leave blank if you don't want to change it)" %>
@@ -16,11 +18,17 @@
 
   <%= f.input :password_confirmation %>
 
+	<% if current_user == @user %>
+	
+		<%= f.input :current_password, :hint => "(we need your current password to confirm your changes)" %>
+	
+	<% end %>
+
 	<% if current_user.admin %>
 	
 		<%= f.input :admin %>
-
+		
 	<% end %>
-
+	
   <%= f.button :submit %>
 <% end %>
