@@ -1,0 +1,15 @@
+<%= simple_form_for(@sensor) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.association :node, label_method: :mac_address %>
+    <%= f.association :sensor_type %>
+    <%= f.input :starting_pin %>
+    <%= f.input :pin_type, as: :select, collection: %w(Analog Digital), include_blank: false, label: t('sensors.label_pin_type') %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

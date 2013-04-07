@@ -1,5 +1,6 @@
 class DataType < ActiveRecord::Base
   attr_accessible :longhand_unit, :shorthand_unit
+  has_many :sensor_types
 
   validates :longhand_unit, :presence => true, :length => { :minimum => 1,
                                          :maximum => 32,

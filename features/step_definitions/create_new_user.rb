@@ -11,11 +11,11 @@ When /^I sign up with name "(.*?)" "(.*?)", email "(.*?)", and password "(.*?)"$
   visit '/users/sign_up'
   
   within("#new_user") do
-    fill_in ' First name', :with => first_name
-    fill_in ' Last name', :with => last_name
-    fill_in ' Email', :with => username
-    fill_in ' Password', :with => password
-    fill_in ' Password confirmation', :with => password
+    fill_in 'First name', :with => first_name
+    fill_in 'Last name', :with => last_name
+    fill_in 'Email', :with => username
+    fill_in 'Password', :with => password
+    fill_in 'Password confirmation', :with => password
   end
   
   click_button 'Sign up'

@@ -11,6 +11,18 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :admin, :first_name, :last_name
   # attr_accessible :title, :body
+  
+  validates :first_name, :presence => { :message => I18n.t('user.error_first_name_blank')},
+                         :length => { :minimum => 2,
+                                      :maximum => 32,
+                                      :too_short => I18n.t('user.error_first_name_too_short'),
+                                      :too_long => I18n.t('user.error_first_name_too_long') }
+
+  validates :last_name, :presence => { :message => I18n.t('user.error_last_name_blank')},
+                         :length => { :minimum => 2,
+                                      :maximum => 32,
+                                      :too_short => I18n.t('user.error_last_name_too_short'),
+                                      :too_long => I18n.t('user.error_last_name_too_long') }
 
   def display_name
     self[:first_name] || self[:email]

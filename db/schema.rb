@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317152607) do
+ActiveRecord::Schema.define(:version => 20130324183420) do
 
   create_table "data_types", :force => true do |t|
     t.string   "longhand_unit",  :null => false
@@ -40,6 +40,26 @@ ActiveRecord::Schema.define(:version => 20130317152607) do
     t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "sensor_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "data_type_id"
+    t.integer  "pins_used"
+    t.string   "library_file"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "sensors", :force => true do |t|
+    t.string   "name",           :null => false
+    t.integer  "node_id",        :null => false
+    t.integer  "sensor_type_id", :null => false
+    t.integer  "starting_pin",   :null => false
+    t.string   "pin_type",       :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "users", :force => true do |t|

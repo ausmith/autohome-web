@@ -67,6 +67,6 @@ Feature: Validate Data Types
     And I enter "123456789" in "Shorthand"
     And I click the button "Create Data Type"
     Then I should not see "Data type was successfully created."
-    And I should see "Shorthand must be at most 32 characters long."
+    And I should see "Shorthand must be at most 8 characters long."
     And I should see "Please review the problems below:"
 

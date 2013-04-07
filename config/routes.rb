@@ -1,7 +1,11 @@
 AutohomeWeb::Application.routes.draw do
+
+
   match "admin" => "admin#index", :as => 'admin', :via => :get
 
   scope "/admin" do
+    resources :sensors
+    resources :sensor_types
     resources :data_types
     resources :rooms
     resources :nodes
