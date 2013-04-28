@@ -20,13 +20,11 @@
 	<% if current_user == @user %>
 	
   	<%= f.input :current_password, hint: 'We need your current password to confirm your changes' %>
-	
-	<% end %>
 
-	<% if current_user.admin %>
+	<% else %>
 	
-		<%= f.input :admin %>
-		
+			<%= f.input :admin %>
+
 	<% end %>
 	
   <%= f.submit %>

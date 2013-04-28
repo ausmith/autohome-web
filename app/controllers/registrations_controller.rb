@@ -50,30 +50,52 @@ class RegistrationsController < Devise::RegistrationsController
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     
     if @user == current_user
+      
+      # Prevents admin users from removing their own admin priveledges
+      if current_user.admin
+        params[:user].delete("admin")
+      end
+      
       if resource.update_with_password(resource_params)   # updates profile but requires password confirmation
+       
         if is_navigational_format?
           flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
             :update_needs_confirmation : :updated
           set_flash_message :notice, flash_key
+       
         end
+       
         sign_in resource_name, resource, :bypass => true  # re-signs in user with new profile properties
         respond_with resource, :location => after_update_path_for(resource)
+      
       else
+      
         clean_up_passwords resource
         respond_with resource
+      
       end
+    
     else
+    
       if resource.update_attributes(resource_params)    # updates profile
+    
         if is_navigational_format?
+    
           flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
             :update_needs_confirmation : :updated
           set_flash_message :notice, flash_key
+    
         end
+    
         respond_with resource, :location => after_update_path_for(resource)
+    
       else
+    
         clean_up_passwords resource
         respond_with resource
+    
       end
+    
     end
   end
 
@@ -99,7 +121,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def deny_access
-      redirect_to users_path
+    redirect_to users_path
   end
-
 end
