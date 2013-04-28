@@ -12,10 +12,14 @@ en:
     data_types: "Data Types"
     sensor_types: "Sensor Types"
     sensors: "Sensors"
+    users: "User Accounts"
   admin:
     title: "Administration"
     initial_setup: "Initial Setup"
   user:
+    access:
+      denied: "You must be an administrator to access this page."
+
     account: "Account"
     login: "Log In"
     logout: "Log Out"
@@ -27,6 +31,10 @@ en:
     error_last_name_blank: "Last name cannot be blank."
     error_last_name_too_short: "Last name must be at least 2 characters long."
     error_last_name_too_long: "Last name must be at most 32 characters long."
+
+  devise:
+    registrations:
+      signed_up_but_unconfirmed: "A message with a confirmation link has been sent to %{first_name} %{last_name} at %{email}. %{first_name} will have to click the included link to activate their account."
   rooms:
     name: "Name"
     error_name_too_short: "Name must be at least 2 characters long."
