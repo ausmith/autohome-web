@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130324183420) do
+ActiveRecord::Schema.define(:version => 20130407212338) do
 
   create_table "data_types", :force => true do |t|
     t.string   "longhand_unit",  :null => false
@@ -21,14 +21,16 @@ ActiveRecord::Schema.define(:version => 20130324183420) do
   end
 
   create_table "nodes", :force => true do |t|
-    t.string   "mac_address",                     :null => false
+    t.string   "mac_address",                           :null => false
     t.string   "ip_address"
-    t.integer  "status",                          :null => false
-    t.boolean  "take_offline", :default => false
+    t.integer  "status",                                :null => false
+    t.boolean  "take_offline",       :default => false
     t.datetime "last_online"
     t.integer  "room_id"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.string   "initialization_key"
+    t.string   "one_time_key"
   end
 
   create_table "nodes_rooms", :force => true do |t|

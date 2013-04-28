@@ -7,6 +7,7 @@ class Node < ActiveRecord::Base
   }
 
   attr_accessible :mac_address, :status, :take_offline, :room_ids
+  attr_accessor :old_one_time_key, :old_initialization_key
   has_and_belongs_to_many :rooms
 
   validates :mac_address, :format => {  :with => /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/, 
@@ -14,9 +15,28 @@ class Node < ActiveRecord::Base
                           :presence => true,
                           :uniqueness => true
   validates :status, :inclusion => { :in => STATUS.values }
-
+  validate :initialize_keys
 
   def self.status
     status = Node::STATUS
+  end
+
+  def update_one_time_key
+    self.old_one_time_key = self.one_time_key
+    self.one_time_key = SecureRandom.hex(32)
+  end
+
+  def update_initialization_key
+    self.old_initialization_key = self.initialization_key
+    self.initialization_key = SecureRandom.hex(32)
+  end
+
+  protected
+
+  def initialize_keys
+    if self.new_record?
+      self.initialization_key = SecureRandom.hex(32)
+      self.one_time_key = SecureRandom.hex(32)
+    end
   end
 end
