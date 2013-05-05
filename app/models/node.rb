@@ -9,6 +9,8 @@ class Node < ActiveRecord::Base
   attr_accessible :mac_address, :status, :take_offline, :room_ids
   attr_accessor :old_one_time_key, :old_initialization_key
   has_and_belongs_to_many :rooms
+  has_many :sensors
+  has_many :data_points
 
   validates :mac_address, :format => {  :with => /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/, 
                                         :message => "DEVTEXT_MAC Address format must be \"XX:XX:XX:XX:XX:XX\"" },

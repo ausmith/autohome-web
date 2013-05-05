@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130407212338) do
+ActiveRecord::Schema.define(:version => 20130505191340) do
+
+  create_table "data_points", :id => false, :force => true do |t|
+    t.integer  "node_id"
+    t.integer  "sensor_id"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "data_points", ["node_id", "sensor_id"], :name => "index_data_points_on_node_id_and_sensor_id"
+  add_index "data_points", ["sensor_id", "created_at"], :name => "index_data_points_on_sensor_id_and_created_at", :unique => true
 
   create_table "data_types", :force => true do |t|
     t.string   "longhand_unit",  :null => false
@@ -63,6 +74,8 @@ ActiveRecord::Schema.define(:version => 20130407212338) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  add_index "sensors", ["node_id", "starting_pin"], :name => "index_sensors_on_node_id_and_starting_pin", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
