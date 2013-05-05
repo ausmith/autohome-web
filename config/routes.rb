@@ -1,6 +1,11 @@
 AutohomeWeb::Application.routes.draw do
 
+  # Error page handling
+  match "/403", :to => 'error#error_403' # Forbidden
+  match "/404", :to => 'error#error_404' # Not Found
+  match "/500", :to => 'error#error_500' # Internal Server Error
 
+  # Administration Interface
   match "admin" => "admin#index", :as => 'admin', :via => :get
 
   scope "/admin" do
@@ -11,18 +16,9 @@ AutohomeWeb::Application.routes.draw do
     resources :nodes
   end
 
-  # devise_for :users
+
+  # User authentication juiciness
   devise_for :users, :controllers => { :registrations => "registrations" }
-  
-  match  "dashboard" => 'dashboard#index'
-
-  authenticated :user do
-      root :to => 'dashboard#index'
-  end
-  root :to => redirect('/users/sign_in')
-
-  get "dashboard" => 'dashboard#index', :as => :dashboard
-  
   devise_scope :user do
     get "users" => 'users#index', :as => :users
     get "users/:id" => 'users#show', :as => :user
@@ -31,56 +27,29 @@ AutohomeWeb::Application.routes.draw do
     #get "registrations/:id/edit" => 'registrations#edit', :as => :edit_registration
     #put "registrations/:id" => 'registrations#update', :as => :update_registration
   end
-  
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+ 
+  match  "dashboard" => 'dashboard#index'
 
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
+  # APIs
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      post "online" => 'data_collection#online'
+      put  "report" => 'data_collection#report'
+    end
+  end
 
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
 
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
 
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  # Root path determined via Devise helper methods.
+  authenticated :user do
+      root :to => 'dashboard#index'
+  end
+  root :to => redirect('/users/sign_in')
 
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
+  #get "dashboard" => 'dashboard#index', :as => :dashboard
 
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
+  # This should be redundant; leave for now, but we may rip this out later
   root :to => 'dashboard#index'
 
   # See how all your routes lay out with "rake routes"

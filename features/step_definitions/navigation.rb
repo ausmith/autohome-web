@@ -1,3 +1,7 @@
+When /^I navigate to the new_user page$/ do
+  visit '/users/sign_up'
+end
+
 Given /^I am on the create_room page$/ do
   visit '/admin/rooms/new'
 end

@@ -11,10 +11,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_id(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @users }
+
+    if @user
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @users }
+      end
+    else
+      raise ActiveRecord::RecordNotFound
     end
   end
 end
