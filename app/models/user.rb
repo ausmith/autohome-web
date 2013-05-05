@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :timeoutable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :admin, :first_name, :last_name
+  # Setup accessible (or not protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
+  # attr_accessor :accessible
   # attr_accessible :title, :body
   
   validates :first_name, :presence => { :message => I18n.t('user.error_first_name_blank')},
@@ -35,4 +36,9 @@ class User < ActiveRecord::Base
       return false
     end
   end
+  
+  # private
+  #   def mass_assignment_authorizer(role = :default)
+  #     super + (accessible || [])
+  #   end
 end

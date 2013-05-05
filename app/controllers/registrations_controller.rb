@@ -17,23 +17,25 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def update
+    # debugger
     @user = User.find_by_id(params[:id])
-    if params[:user][:password].blank?
+    self.resource = resource_class.to_adapter.get!(@user.to_key)  # MUST occure BEFORE @user.accessible is assigned
+
+    if current_user.admin
+           @user.accessible = :all   # allows admins to edit admin status
+           puts "Accessible: #{@user.accessible}"
+    end
+    
+    if params[:user][:password].blank?  # possibly superfluous
        params[:user].delete("password")
        params[:user].delete("password_confirmation")
     end
-    self.resource = resource_class.to_adapter.get!(@user.to_key)
+    
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
     
     if @user == current_user
       
-      # Prevents admin users from removing their own admin priveledges
-      if current_user.admin
-        params[:user].delete("admin")
-      end
-      
       if resource.update_with_password(resource_params)   # updates profile but requires password confirmation
-       
         if is_navigational_format?
           flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
             :update_needs_confirmation : :updated
@@ -53,7 +55,7 @@ class RegistrationsController < Devise::RegistrationsController
     
     else
     
-      if resource.update_attributes(resource_params)    # updates profile
+      if resource.update_attributes(resource_params)    # updates profile w/out requiring password
     
         if is_navigational_format?
     
