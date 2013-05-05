@@ -63,45 +63,71 @@ module Api
         node_nil = node == nil
         key_valid = !node_nil && key == node.one_time_key
 
-        # Build the result hash to display
-        @result = Hash.new
-        @result['result'] = Hash.new
+        Node.transaction do
+          # Build the result hash to display
+          @result = Hash.new
+          @result['result'] = Hash.new
 
-        if key_valid
-          # All good so far. Start reading in data and storing it.
-          @result['result']['status_code'] = 0
-          node.update_one_time_key
+          if key_valid
+            # All good so far. Start reading in data and storing it.
+            @result['result']['status_code'] = 0
+            node.update_one_time_key
 
-          # Start reading in the pins and the values
-          have_pin = true
-          current_pin_number = 0
-          begin
-            current_pin_number = params["pin_#{current_pin_number}_location"]
-            current_pin_value  = params["pin_#{current_pin_number}_value"]
+            # Start reading in the pins and the values
+            have_pin = true
+            current_pin_number = 0
+            sensor_success = true
+            Sensor.transaction do
+              begin
+                current_pin_location = params["pin_#{current_pin_number}_location"]
+                current_pin_value  = params["pin_#{current_pin_number}_value"]
 
-            if current_pin_number != nil && current_pin_value != nil
-              # Build the data point to put into the database.
-              # For now, just PUTS them to stdout
-              puts current_pin_number
-              puts current_pin_value
-            else
-              have_pin = false
+                if current_pin_location != nil && current_pin_value != nil
+                  # Get the sensor that this value applies to
+                  sensor = Sensor.where(:node_id => node, :starting_pin => current_pin_location.to_i).first
+
+                  if sensor
+                    # Craft a data point with the provided information
+                    data_point = DataPoint.new
+                    data_point.node = node
+                    data_point.sensor = sensor
+                    data_point.value = current_pin_value
+
+                    if !(data_point.valid? && data_point.save)
+                      @result['result']['status_code'] = 4 # Sensor data could not save
+                      sensor_success = false
+                      raise ActiveRecord::Rollback
+                    end
+                  else
+                    # Problem -- sensor does not exist
+                    @result['result']['status_code'] = 3 # Invalid Sensor
+                    sensor_success = false
+                    raise ActiveRecord::Rollback
+                  end
+                else
+                  have_pin = false
+                end
+
+                current_pin_number += 1
+              end while have_pin
+            end # Sensor transaction
+
+            if sensor_success # Did all the sensors update properly?
+              if !node.valid? || !node.save!
+                # Something we generated was not valid. Set the status code to 2
+                @result['result']['status_code'] = 2
+              else
+                @result['result']['one_time_key'] = node.one_time_key
+              end
             end
-          end while have_pin
-
-          if !node.valid? || !node.save!
-            # Something we generated was not valid. Set the status code to 2
-            @result['result']['status_code'] = 2
           else
-            @result['result']['one_time_key'] = node.one_time_key
+            # Everything is not okay; status code > 0
+            @result['result']['status_code'] = 1
           end
-        else
-          # Everything is not okay; status code > 0
-          @result['result']['status_code'] = 1
-        end
+        end # Node.transaction
 
         respond_to do |format|
-          if node == nil
+          if node == nil || @result['result']['status_code'] != 0
             format.json { render json: @result, status: :forbidden }
           else
             format.json { render json: @result }
