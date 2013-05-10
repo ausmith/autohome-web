@@ -58,5 +58,8 @@ module AutohomeWeb
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # We catch all exceptions (aka "we do our own stunts")
+    config.exceptions_app = self.routes
   end
 end
