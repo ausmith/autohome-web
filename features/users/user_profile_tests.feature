@@ -3,11 +3,18 @@ Feature: allow non-admin users to edit their own profile and admins to edit anyo
 	As a non-admin user
 	I want to edit my profile
 	So that I can update my profile
-	
+
 	As an admin user
 	I want to edit any user's profile
 	So that I can update that user's profile
-	
+        
+        @wip
+        Scenario: a non-admin views another user's profile
+                Given I am registered as non-admin "nonadmin@example.com" with password "password"
+                When I logon as "nonadmin@example.com" with password "password"
+                And I go to another user's profile page
+                Then I should not see a link to "Edit User"
+
 	Scenario: a non-admin user edits their profile
 		Given I am registered as non-admin user "nonadmin1@example.com" with password "password"
 		When I logon as "nonadmin1@example.com" with password "password"

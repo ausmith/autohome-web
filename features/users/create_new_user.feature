@@ -1,4 +1,4 @@
-@wip
+
 Feature: an admin wants sign up a new user
 
   As an admin
