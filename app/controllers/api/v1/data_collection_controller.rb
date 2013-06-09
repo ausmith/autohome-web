@@ -23,6 +23,9 @@ module Api
         node_nil = node == nil
         key_valid = !node_nil && initialization_key == node.initialization_key
 
+        puts key_valid
+        puts node_nil
+
         # Build the result hash to display
         @result = Hash.new
         @result['result'] = Hash.new
@@ -38,7 +41,7 @@ module Api
             @result['result']['status_code'] = 2
           else
             @result['result']['new_initialization_key'] = node.initialization_key
-            @result['result']['one_time_key'] = node.one_time_key
+            @result['result']['new_one_time_key'] = node.one_time_key
           end
         else
           # Everything is not okay; status code > 0
@@ -46,10 +49,12 @@ module Api
         end
 
         respond_to do |format|
-          if node == nil
+          if node == nil || @result['result']['status_code'] != 0
             format.json { render json: @result, status: :forbidden }
+            format.text { render :status => :forbidden, :content_type => Mime::TEXT }
           else
             format.json { render json: @result }
+            format.text { render :content_type => Mime::TEXT }
           end
         end
       end
@@ -129,10 +134,57 @@ module Api
         respond_to do |format|
           if node == nil || @result['result']['status_code'] != 0
             format.json { render json: @result, status: :forbidden }
+            format.txt { render :status => :forbidden, :content_type => Mime::TEXT }
           else
             format.json { render json: @result }
+            format.txt { render :content_type => Mime::TEXT }
           end
         end
+      end
+    end
+  end
+
+  def authorize
+    # Grab params
+    mac = params[:mac_address]
+    key = params[:one_time_key]
+    auth_type = params[:auth_type]
+    auth_key = params[:auth_key]
+
+    # Fetch the node if it exists
+    node = Node.find_by_mac_address(mac)
+    node_nil = node == nil
+    key_valid = !node_nil && one_time_key == node.one_time_key
+
+    # Build the result hash to display
+    @result = Hash.new
+    @result['result'] = Hash.new
+
+    if key_valid
+      # Everything looks good
+      node.update_one_time_key
+      
+      # Auth a user (hopefully)
+      
+      access_right = AccessControl.where(:access_control_type_id => auth_type, :value => auth_key, :enabled => true)
+
+      if access_right != nil
+        @result['result']['status_code'] = 0
+        # TODO: Send command to calling object? How do we control the door remotely? Maybe we need a server running too?
+      else
+        # Could not auth the user. Set status code to 2
+        @result['result']['status_code'] = 2
+      end
+    else
+      # Everything is not okay; status code > 0
+      @result['result']['status_code'] = 1
+    end
+
+    respond_to do |format|
+      if node == nil
+        format.json { render json: @result, status: :forbidden }
+      else
+        format.json { render json: @result }
       end
     end
   end
