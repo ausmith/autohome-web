@@ -42,4 +42,8 @@ class User < ActiveRecord::Base
   #   def mass_assignment_authorizer(role = :default)
   #     super + (accessible || [])
   #   end
+
+  def soft_delete
+    update_attributes(:deleted_at, Time.current)
+  end
 end
