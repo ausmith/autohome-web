@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
     self[:first_name] || self[:email]
   end
   
+  def display_full_name
+    self[:first_name] + " " + self[:last_name] || self[:email]
+  end
+  
   # Prevents original user ("super admin") from being removed from the user table
   def prevent_super_admin_destroy
     if id == 1
