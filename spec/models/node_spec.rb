@@ -44,4 +44,24 @@ describe Node do
     # TODO: After the Room scaffold is done
     pending "We can't do this until the Room scaffold is built"
   end
+
+  it "updates the one time key when told to" do
+    a = FactoryGirl.build(:node)
+    old_one_time_key = a.one_time_key
+    a.update_one_time_key
+    a.one_time_key.should_not eq(old_one_time_key)
+
+    # Check that the old one-time key was stored
+    a.old_one_time_key.should eq(old_one_time_key)
+  end
+
+  it "updates the initialization key when told to" do
+    a = FactoryGirl.build(:node)
+    old_init_key = a.initialization_key
+    a.update_initialization_key
+    a.initialization_key.should_not eq(old_init_key)
+
+    # Check that the old initialization key was stored
+    a.old_initialization_key.should eq(old_init_key)
+  end
 end
