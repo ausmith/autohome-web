@@ -38,8 +38,6 @@ gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute
 
 
 group :development do
-  gem 'spork'
-  gem 'spork-rails'
   gem 'thin' # A better DEV server
   gem 'guard'
   gem 'guard-cucumber'
@@ -60,7 +58,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'ZenTest'
   gem 'autotest-rails'
-  gem 'simplecov'          # Code coverage
   gem 'webrat'
 end
 
@@ -76,6 +73,7 @@ group :test do
   gem 'execjs'             # Run Javascript from Ruby code
   gem 'therubyracer'       # V8 Javascript interpreter for Ruby
   gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
+  gem 'simplecov', :require => false    # Code coverage
 end
 
 group :staging, :production do
