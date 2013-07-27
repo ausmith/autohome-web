@@ -35,6 +35,7 @@ gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
 gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 gem 'airbrake'           # Error tracking
 gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
+gem 'coveralls', require: false
 
 
 group :development do
