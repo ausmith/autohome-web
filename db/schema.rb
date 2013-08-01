@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505191340) do
+ActiveRecord::Schema.define(:version => 20130602171734) do
+
+  create_table "access_control_types", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "access_controls", :force => true do |t|
+    t.integer  "access_control_type_id"
+    t.integer  "user_id"
+    t.string   "value"
+    t.string   "description"
+    t.boolean  "enabled"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
 
   create_table "data_points", :id => false, :force => true do |t|
     t.integer  "node_id"
@@ -97,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20130505191340) do
     t.boolean  "admin",                  :default => false
     t.string   "first_name"
     t.string   "last_name"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

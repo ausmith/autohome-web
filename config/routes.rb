@@ -28,6 +28,11 @@ AutohomeWeb::Application.routes.draw do
     #put "registrations/:id" => 'registrations#update', :as => :update_registration
   end
  
+  resources :users do
+    resources :access_controls
+  end
+
+
   match  "dashboard" => 'dashboard#index'
 
   # APIs

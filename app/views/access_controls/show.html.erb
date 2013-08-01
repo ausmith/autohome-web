@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Access control type:</b>
+  <%= @access_control.access_control_type_id %>
+</p>
+
+<p>
+  <b>Value:</b>
+  <%= @access_control.value %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @access_control.description %>
+</p>
+
+<p>
+  <b>Enabled:</b>
+  <%= @access_control.enabled %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_access_control_path(@user, @access_control) %> |
+<%= link_to 'Back', user_access_controls_path(@user) %>

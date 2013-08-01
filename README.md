@@ -1,5 +1,7 @@
 # Autohome Web
 
+[![Build Status](https://travis-ci.org/autohome/autohome-web.png?branch=master)](https://travis-ci.org/autohome/autohome-web)
+
 This repository contains the web interface and main control system for the
 [Autohome Project](http://autohomeproject.org), a Rails-based home automation system.
 

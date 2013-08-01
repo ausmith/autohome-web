@@ -15,18 +15,22 @@
 # along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
 ###############################################################################
 
-require 'spec_helper'
+FactoryGirl.define do
+  factory :user do
+    email Faker::Internet.email
+    password "password"
+    password_confirmation "password"
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    deleted_at nil
 
-describe DataPoint do
-  it "has a valid factory" do
-    FactoryGirl.build(:data_point).should be_valid
-  end
+    factory :regular_user do
+      admin false
+    end
 
-  it "requires a valid node" do
-    FactoryGirl.build(:data_point, :node => nil).should_not be_valid
-  end
-
-  it "requires a valid sensor" do
-    FactoryGirl.build(:data_point, :sensor => nil).should_not be_valid
+    factory :admin_user do
+      admin true
+    end
   end
 end
+

@@ -15,18 +15,14 @@
 # along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
 ###############################################################################
 
-require 'spec_helper'
+class AccessControl < ActiveRecord::Base
+  attr_accessible :access_control_type_id, :description, :enabled, :value
+  belongs_to :access_control_type
+  belongs_to :user
 
-describe DataPoint do
-  it "has a valid factory" do
-    FactoryGirl.build(:data_point).should be_valid
-  end
+  validates :access_control_type_id, :presence => true
+  validates :description, :presence => true, :length => { :in => 2..64 }
+  validates :value, :presence => true, :length => { :in => 1..100 }
+  validates :user, :presence => true
 
-  it "requires a valid node" do
-    FactoryGirl.build(:data_point, :node => nil).should_not be_valid
-  end
-
-  it "requires a valid sensor" do
-    FactoryGirl.build(:data_point, :sensor => nil).should_not be_valid
-  end
 end

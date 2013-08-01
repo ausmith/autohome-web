@@ -15,18 +15,13 @@
 # along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
 ###############################################################################
 
-require 'spec_helper'
-
-describe DataPoint do
-  it "has a valid factory" do
-    FactoryGirl.build(:data_point).should be_valid
-  end
-
-  it "requires a valid node" do
-    FactoryGirl.build(:data_point, :node => nil).should_not be_valid
-  end
-
-  it "requires a valid sensor" do
-    FactoryGirl.build(:data_point, :sensor => nil).should_not be_valid
+FactoryGirl.define do
+  factory :access_control do
+    association :access_control_type, factory: :access_control_type
+    user
+    value Faker::Base.regexify(/^[A-Za-z0-9\-_. ]{2,32}$/)
+    description Faker::Base.regexify(/^[A-Za-z0-9\-_. ]{2,64}$/)
+    enabled true
   end
 end
+

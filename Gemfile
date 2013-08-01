@@ -34,12 +34,11 @@ gem 'sass'         # SASS CSS language
 gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
 gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 gem 'airbrake'           # Error tracking
-gem 'enumerated_attribute' # Allows for enums in migrations
+gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
+gem 'coveralls', require: false
 
 
 group :development do
-  gem 'spork'
-  gem 'spork-rails'
   gem 'thin' # A better DEV server
   gem 'guard'
   gem 'guard-cucumber'
@@ -60,7 +59,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'ZenTest'
   gem 'autotest-rails'
-  gem 'simplecov'          # Code coverage
   gem 'webrat'
 end
 
@@ -76,6 +74,7 @@ group :test do
   gem 'execjs'             # Run Javascript from Ruby code
   gem 'therubyracer'       # V8 Javascript interpreter for Ruby
   gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
+  gem 'simplecov', :require => false    # Code coverage
 end
 
 group :staging, :production do

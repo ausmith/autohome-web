@@ -17,16 +17,22 @@
 
 require 'spec_helper'
 
-describe DataPoint do
+describe AccessControlType do
   it "has a valid factory" do
-    FactoryGirl.build(:data_point).should be_valid
+    FactoryGirl.build(:access_control_type).should be_valid
   end
 
-  it "requires a valid node" do
-    FactoryGirl.build(:data_point, :node => nil).should_not be_valid
-  end
+  it "has a valid name" do
+    # Syntactically valid name
+    FactoryGirl.build(:access_control_type).should be_valid
 
-  it "requires a valid sensor" do
-    FactoryGirl.build(:data_point, :sensor => nil).should_not be_valid
+    # Blank name
+    FactoryGirl.build(:access_control_type, :name => '').should_not be_valid
+
+    # Too short
+    FactoryGirl.build(:access_control_type, :name => 'a').should_not be_valid
+
+    # Too long
+    FactoryGirl.build(:access_control_type, :name => '12345678901234567890123456789012345678901234567890123456789012345').should_not be_valid
   end
 end
