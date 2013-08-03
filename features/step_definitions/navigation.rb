@@ -28,3 +28,7 @@ end
 When /^I logout$/ do
   click_link "Log Out"
 end
+
+When(/^I am on the create_sensor page$/) do
+  pending # express the regexp above with the code you wish you had
+end
