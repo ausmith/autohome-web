@@ -32,8 +32,8 @@ module Api
       # @return 200 on success (result --> [status_code, new_initialization_key, one_time_key] JSON)
       def online
         # Grab params
-        mac = params[:mac_address]
-        initialization_key = params[:initialization_key]
+        mac = params[:mac_address] || params[:M]
+        initialization_key = params[:initialization_key] || params[:I]
 
         # Fetch the node if it exists
         node = Node.find_by_mac_address(mac)
@@ -77,8 +77,8 @@ module Api
       end
 
       def report
-        mac = params[:mac_address]
-        key = params[:one_time_key]
+        mac = params[:mac_address] || params[:M]
+        key = params[:one_time_key] || params[:O]
 
         # Fetch the node if it exists
         node = Node.find_by_mac_address(mac)

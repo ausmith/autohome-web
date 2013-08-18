@@ -26,9 +26,9 @@ module Api
         
         def auth
           # Grab parameters
-          mac = params[:mac_address]
-          key = params[:one_time_key]
-          rfid_key = params[:rfid_id]
+          mac = params[:mac_address] || params[:M]
+          key = params[:one_time_key] || params[:O]
+          rfid_key = params[:rfid_id] || params[:R]
 
           # Fetch node if it exists
           node = Node.find_by_mac_address(mac)
