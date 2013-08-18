@@ -19,6 +19,6 @@ FactoryGirl.define do
   factory :data_point do
     node
     sensor
-    value Faker::Base.numerify('##.#')
+    value ((Random.rand(1000).to_f) / 10)
   end
 end

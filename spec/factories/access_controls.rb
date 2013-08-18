@@ -19,8 +19,8 @@ FactoryGirl.define do
   factory :access_control do
     association :access_control_type, factory: :access_control_type
     user
-    value Faker::Base.regexify(/^[A-Za-z0-9\-_. ]{2,32}$/)
-    description Faker::Base.regexify(/^[A-Za-z0-9\-_. ]{2,64}$/)
+    value { a = 2 + rand(30); rand(36**a).to_s(36)}
+    description { a = 2 + rand(62); rand(36**a).to_s(36)}
     enabled true
   end
 end

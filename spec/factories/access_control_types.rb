@@ -17,7 +17,7 @@
 
 FactoryGirl.define do
   factory :access_control_type do
-    name Faker::Base.regexify(/^[A-Za-z0-9\-_. ]{2,64}$/)
+    sequence(:name) {|n| "Type ##{n}" }
   end
 end
 

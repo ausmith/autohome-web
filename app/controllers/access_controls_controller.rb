@@ -1,3 +1,20 @@
+###############################################################################
+# This file is part of The Autohome Project.
+#
+# The Autohome Project is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# The Autohome Project is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
+###############################################################################
+
 class AccessControlsController < ApplicationController
   # GET /users/access_controls
   # GET /users/access_controls.json
@@ -17,7 +34,11 @@ class AccessControlsController < ApplicationController
     @user = User.find_by_id(params[:user_id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      if @access_control != nil
+        format.html
+      else
+        raise ActiveRecord::RecordNotFound
+      end
     end
   end
 
@@ -36,6 +57,14 @@ class AccessControlsController < ApplicationController
   def edit
     @access_control = AccessControl.where(:id => params[:id], :user_id => params[:user_id]).first
     @user = User.find_by_id(params[:user_id])
+
+    respond_to do |format|
+      if @access_control != nil
+        format.html
+      else
+        raise ActiveRecord::RecordNotFound
+      end
+    end
   end
 
   # POST /users/access_controls
@@ -59,7 +88,9 @@ class AccessControlsController < ApplicationController
     @access_control = AccessControl.where(:id => params[:id], :user_id => params[:user_id]).first
 
     respond_to do |format|
-      if @access_control.update_attributes(params[:access_control])
+      if @access_control == nil
+        raise ActiveRecord::RecordNotFound
+      elsif @access_control.update_attributes(params[:access_control])
         format.html { redirect_to [:user, @access_control], notice: 'Access control was successfully updated.' }
       else
         format.html { render action: "edit" }

@@ -1,11 +1,7 @@
-require 'faker'
-
-valid = '0123456789abcdefABCDEF'
-
 FactoryGirl.define do
   factory :data_type do
-    longhand_unit Faker::Base.regexify(/[A-Za-z0-9]{1,32}/)
-    shorthand_unit Faker::Base.regexify(/[A-Za-z0-9]{1,8}/)
+    longhand_unit { a = 1 + rand(31); rand(36**a).to_s(36)}
+    shorthand_unit { a = 1 + rand(7); rand(36**a).to_s(36)}
   end
 end
 

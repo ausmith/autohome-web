@@ -50,6 +50,8 @@ en:
     error_shorthand_unit_too_long: "Shorthand must be at most 8 characters long."
     error_longhand_unit_too_short: "Unit name must be at least 1 character long."
     error_longhand_unit_too_long: "Unit name must be at most 32 characters long."
+  nodes:
+    error_room_invalid: "One or more attached rooms is invalid."
   sensor_types:
     name: "Name"
     description: "Description"

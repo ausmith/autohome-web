@@ -41,8 +41,11 @@ describe Node do
   end
 
   it "is attached to a room" do
-    # TODO: After the Room scaffold is done
-    pending "We can't do this until the Room scaffold is built"
+    a = FactoryGirl.build(:node)
+    a.should be_valid
+
+    a.room_ids = nil
+    a.should_not be_valid
   end
 
   it "updates the one time key when told to" do
