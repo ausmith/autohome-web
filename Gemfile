@@ -97,4 +97,5 @@ end
 group :staging, :production do
   gem 'newrelic_rpm'       # Performance tracking
   gem 'pg'
+  gem 'unicorn'
 end
