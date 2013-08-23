@@ -19,7 +19,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.10'
 
-gem 'sqlite3'
 
 
 # Gems used only for assets and not required
@@ -77,6 +76,7 @@ group :development, :test do
   gem 'ZenTest'
   gem 'autotest-rails'
   gem 'webrat'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -96,4 +96,5 @@ end
 
 group :staging, :production do
   gem 'newrelic_rpm'       # Performance tracking
+  gem 'pg'
 end
