@@ -52,6 +52,7 @@ gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 gem 'airbrake'           # Error tracking
 gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
 gem 'coveralls', require: false
+gem 'therubyracer'       # V8 Javascript interpreter for Ruby
 
 
 group :development do
@@ -89,7 +90,6 @@ group :test do
   gem 'shoulda-matchers'   # Rspec-compatible one-liners to test common Rails functionality
   gem 'launchy'            # I don't think we need this
   gem 'execjs'             # Run Javascript from Ruby code
-  gem 'therubyracer'       # V8 Javascript interpreter for Ruby
   gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
   gem 'simplecov', :require => false    # Code coverage
 end
