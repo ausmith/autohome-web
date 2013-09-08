@@ -1,3 +1,20 @@
+###############################################################################
+# This file is part of The Autohome Project.
+#
+# The Autohome Project is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# The Autohome Project is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
+###############################################################################
+
 AutohomeWeb::Application.routes.draw do
 
   # Error page handling
@@ -40,6 +57,11 @@ AutohomeWeb::Application.routes.draw do
     namespace :v1 do
       post "online" => 'data_collection#online'
       put  "report" => 'data_collection#report'
+
+      # Authentication patterns
+      namespace :auth do
+        post 'rfid' => 'rfid#auth'
+      end
     end
   end
 
@@ -52,14 +74,6 @@ AutohomeWeb::Application.routes.draw do
   end
   root :to => redirect('/users/sign_in')
 
-  #get "dashboard" => 'dashboard#index', :as => :dashboard
-
   # This should be redundant; leave for now, but we may rip this out later
   root :to => 'dashboard#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end

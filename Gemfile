@@ -1,8 +1,24 @@
+###############################################################################
+# This file is part of The Autohome Project.
+#
+# The Autohome Project is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# The Autohome Project is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
+###############################################################################
+
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.10'
 
-gem 'sqlite3'
 
 
 # Gems used only for assets and not required
@@ -36,6 +52,7 @@ gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
 gem 'airbrake'           # Error tracking
 gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
 gem 'coveralls', require: false
+gem 'therubyracer'       # V8 Javascript interpreter for Ruby
 
 
 group :development do
@@ -53,13 +70,14 @@ group :development, :test do
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
-  gem 'faker'
+  gem 'ffaker'
   gem 'rspec'
   gem 'email_spec'
   gem 'rspec-rails'
   gem 'ZenTest'
   gem 'autotest-rails'
   gem 'webrat'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -72,11 +90,12 @@ group :test do
   gem 'shoulda-matchers'   # Rspec-compatible one-liners to test common Rails functionality
   gem 'launchy'            # I don't think we need this
   gem 'execjs'             # Run Javascript from Ruby code
-  gem 'therubyracer'       # V8 Javascript interpreter for Ruby
   gem 'pickle'             # Cucumber steps to integrate easily with Factory Girl
   gem 'simplecov', :require => false    # Code coverage
 end
 
 group :staging, :production do
   gem 'newrelic_rpm'       # Performance tracking
+  gem 'pg'
+  gem 'unicorn'
 end

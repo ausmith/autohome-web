@@ -1,3 +1,20 @@
+###############################################################################
+# This file is part of The Autohome Project.
+#
+# The Autohome Project is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# The Autohome Project is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with The Autohome Project.  If not, see <http://www.gnu.org/licenses/>.
+###############################################################################
+
 #require 'secure_random'
 module Api
   module V1
@@ -15,8 +32,8 @@ module Api
       # @return 200 on success (result --> [status_code, new_initialization_key, one_time_key] JSON)
       def online
         # Grab params
-        mac = params[:mac_address]
-        initialization_key = params[:initialization_key]
+        mac = params[:mac_address] || params[:M]
+        initialization_key = params[:initialization_key] || params[:I]
 
         # Fetch the node if it exists
         node = Node.find_by_mac_address(mac)
@@ -60,8 +77,8 @@ module Api
       end
 
       def report
-        mac = params[:mac_address]
-        key = params[:one_time_key]
+        mac = params[:mac_address] || params[:M]
+        key = params[:one_time_key] || params[:O]
 
         # Fetch the node if it exists
         node = Node.find_by_mac_address(mac)

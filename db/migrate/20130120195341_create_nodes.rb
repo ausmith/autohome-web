@@ -5,7 +5,7 @@ class CreateNodes < ActiveRecord::Migration
       t.string :ip_address, :length => 15, :null => true
       t.integer :status, :null => false
       t.boolean :take_offline, :default => false
-      t.datetime :last_online, :null => true, :default => :nil
+      t.datetime :last_online, :null => true
       t.integer :room_id
 
       t.timestamps

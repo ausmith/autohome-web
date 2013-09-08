@@ -1,0 +1,2 @@
+status:<%= @result['result']['status_code'] %><% if ![1, 2].include? @result['result']['status_code'] %>
+newonetime:<%= @result['result']['new_one_time_key'] %><% end %>

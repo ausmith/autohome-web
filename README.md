@@ -1,6 +1,8 @@
 # Autohome Web
 
 [![Build Status](https://travis-ci.org/autohome/autohome-web.png?branch=master)](https://travis-ci.org/autohome/autohome-web)
+[![Coverage Status](https://coveralls.io/repos/autohome/autohome-web/badge.png)](https://coveralls.io/r/autohome/autohome-web)
+[![Ohloh Project](https://www.ohloh.net/p/autohome-web/widgets/project_thin_badge.gif)](https://www.ohloh.net/p/autohome-web)
 
 This repository contains the web interface and main control system for the
 [Autohome Project](http://autohomeproject.org), a Rails-based home automation system.
