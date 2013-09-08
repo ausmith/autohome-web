@@ -91,7 +91,7 @@ class AccessControlsController < ApplicationController
       if @access_control == nil
         raise ActiveRecord::RecordNotFound
       elsif @access_control.update_attributes(params[:access_control])
-        format.html { redirect_to [:user, @access_control], notice: 'Access control was successfully updated.' }
+        format.html { redirect_to [@access_control.user, @access_control], notice: 'Access control was successfully updated.' }
       else
         format.html { render action: "edit" }
       end
