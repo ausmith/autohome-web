@@ -18,6 +18,11 @@
 FactoryGirl.define do
   factory :access_control_type do
     sequence(:name) {|n| "Type ##{n}" }
+
+    factory :rfid_access_control_type do
+      name "RFID Key"
+      id 1
+    end
   end
 end
 

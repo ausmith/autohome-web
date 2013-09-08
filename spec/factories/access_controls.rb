@@ -22,6 +22,10 @@ FactoryGirl.define do
     value { a = 2 + rand(30); rand(36**a).to_s(36)}
     description { a = 2 + rand(62); rand(36**a).to_s(36)}
     enabled true
+
+    factory :rfid_access_control do
+      association :access_control_type, factory: :rfid_access_control_type
+    end
   end
 end
 
