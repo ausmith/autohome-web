@@ -13,6 +13,8 @@ en:
     sensor_types: "Sensor Types"
     sensors: "Sensors"
     users: "User Accounts"
+    access_controls: "Access Controls"
+    user_signup: "Create a New User Account"
   admin:
     title: "Administration"
     initial_setup: "Initial Setup"
