@@ -59,6 +59,17 @@ describe AccessControlsController do
       get :show, {:user_id => user.id, :id => access_control.to_param}
       assigns(:access_control).should eq(access_control)
     end
+
+    it "throws a RecordNotFound exception when the access control does not exist" do
+      user = User.first
+      access_control = AccessControl.new valid_attributes
+      access_control.user_id = user.id
+      access_control.save
+
+      expect {
+        get :show, {:user_id => user.id, :id => access_control.to_param + '1'}
+      }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe "GET new" do
@@ -78,6 +89,17 @@ describe AccessControlsController do
 
       get :edit, {:user_id => user.id, :id => access_control.to_param}
       assigns(:access_control).should eq(access_control)
+    end
+
+    it "throws a RecordNotFound exception when the access control does not exist" do
+      user = User.first
+      access_control = AccessControl.new valid_attributes
+      access_control.user_id = user.id
+      access_control.save
+
+      expect {
+        get :edit, {:user_id => user.id, :id => access_control.to_param + '1'}
+      }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
@@ -154,6 +176,17 @@ describe AccessControlsController do
         access_control.save
         put :update, {:user_id => user.id, :id => access_control.to_param, :access_control => valid_attributes}
         response.should redirect_to(user_access_control_path(user.id, access_control.to_param))
+      end
+
+      it "throws a RecordNotFound exception when the access control does not exist" do
+        user = User.first
+        access_control = AccessControl.new valid_attributes
+        access_control.user_id = user.id
+        access_control.save
+
+        expect {
+          put :update, {:user_id => user.id, :id => access_control.to_param + '1', :access_control => valid_attributes}
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
