@@ -28,6 +28,7 @@ class Node < ActiveRecord::Base
   has_and_belongs_to_many :rooms
   has_many :sensors
   has_many :data_points
+  has_many :sec_events
 
   validates :mac_address, :format => {  :with => /[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/, 
                                         :message => "DEVTEXT_MAC Address format must be \"XX:XX:XX:XX:XX:XX\"" },

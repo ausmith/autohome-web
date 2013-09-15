@@ -6,6 +6,7 @@ class Sensor < ActiveRecord::Base
   belongs_to :node
   belongs_to :sensor_type
   has_many :data_points
+  has_many :sec_events
 
   validates :name, :presence => true, :length => { :minimum => 2, :maximum => 64 }
   validates :node, :presence => true

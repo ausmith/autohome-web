@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   # attr_accessor :accessible
   # attr_accessible :title, :body
   has_many :access_controls
+  has_many :sec_events
   
   validates :first_name, :presence => { :message => I18n.t('user.error_first_name_blank')},
                          :length => { :minimum => 2,

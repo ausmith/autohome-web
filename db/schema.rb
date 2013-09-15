@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915190318) do
+ActiveRecord::Schema.define(:version => 20130915194533) do
 
   create_table "access_control_types", :force => true do |t|
     t.string   "name"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(:version => 20130915190318) do
     t.string   "description", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "sec_events", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "room_id"
+    t.integer  "node_id"
+    t.integer  "sensor_id"
+    t.integer  "sec_event_type_id", :null => false
+    t.string   "description"
+    t.string   "ip",                :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "sensor_types", :force => true do |t|

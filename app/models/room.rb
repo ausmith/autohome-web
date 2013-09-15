@@ -2,6 +2,7 @@ class Room < ActiveRecord::Base
   attr_accessible :name
 
   has_and_belongs_to_many :nodes
+  has_many :sec_events
 
   validates :name, :uniqueness => true,
                    :length => { :minimum => 2,
