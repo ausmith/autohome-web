@@ -5,7 +5,7 @@ class CreateSecEvents < ActiveRecord::Migration
       t.integer :room_id
       t.integer :node_id
       t.integer :sensor_id
-      t.integer :sec_event_type_id, :null => false
+      t.string :sec_event_type_cd, :null => false
       t.string :description, :length => 255
       t.string :ip, :length => 45, :null => false
 

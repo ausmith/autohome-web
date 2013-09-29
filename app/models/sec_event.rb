@@ -5,5 +5,5 @@ class SecEvent < ActiveRecord::Base
   belongs_to :room
   belongs_to :node
   belongs_to :sensor
-  belongs_to :sec_event_type
+  belongs_to :sec_event_type, :primary_key => 'type_cd'
 end

@@ -13,8 +13,6 @@ en:
     sensor_types: "Sensor Types"
     sensors: "Sensors"
     users: "User Accounts"
-    access_controls: "Access Controls"
-    user_signup: "Create a New User Account"
   admin:
     title: "Administration"
     initial_setup: "Initial Setup"
@@ -63,14 +61,4 @@ en:
     name_too_long: "Name must be at most 32 characters long."
     library_file_too_long: "Library file must be at most 64 characters long."
     library_file_bad_format: "Library file must end with \".rb\"."
- sec_event_types:
-    auth:
-      rfid:
-        carddne: "RFID door access denied: Card ID does not exist in database."
-        carddisabled: "RFID door access denied: Card ID recognized but is not activated."
-        accesssuccess: "RFID door access succeess."
-      web:
-        loginsuccess: "User web login success."
-        loginpwfail: "User web login failed: invalid password."
-        loginuserdne: "User web login failed: invalid password."
-        loginpwreset: "User web password has been reset."
+

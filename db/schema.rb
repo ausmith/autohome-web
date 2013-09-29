@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915194533) do
+ActiveRecord::Schema.define(:version => 20130929182305) do
 
   create_table "access_control_types", :force => true do |t|
     t.string   "name"
@@ -71,23 +71,33 @@ ActiveRecord::Schema.define(:version => 20130915194533) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "sec_event_types", :force => true do |t|
+  create_table "sec_event_types", :id => false, :force => true do |t|
+    t.string   "type_cd",     :null => false
     t.string   "description", :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "sec_event_types", ["description"], :name => "index_sec_event_types_on_description"
+  add_index "sec_event_types", ["type_cd"], :name => "index_sec_event_types_on_type_cd", :unique => true
 
   create_table "sec_events", :force => true do |t|
     t.integer  "user_id"
     t.integer  "room_id"
     t.integer  "node_id"
     t.integer  "sensor_id"
-    t.integer  "sec_event_type_id", :null => false
+    t.string   "sec_event_type_cd", :null => false
     t.string   "description"
     t.string   "ip",                :null => false
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "sec_events", ["node_id"], :name => "index_sec_events_on_node_id"
+  add_index "sec_events", ["room_id"], :name => "index_sec_events_on_room_id"
+  add_index "sec_events", ["sec_event_type_cd"], :name => "index_sec_events_on_sec_event_type_cd"
+  add_index "sec_events", ["sensor_id"], :name => "index_sec_events_on_sensor_id"
+  add_index "sec_events", ["user_id"], :name => "index_sec_events_on_user_id"
 
   create_table "sensor_types", :force => true do |t|
     t.string   "name"
