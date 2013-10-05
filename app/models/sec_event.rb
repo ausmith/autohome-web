@@ -1,5 +1,5 @@
 class SecEvent < ActiveRecord::Base
-  attr_accessible :description, :ip, :node_id, :room_id, :sensor_id, :sec_event_type_id, :user_id
+  attr_accessible :description, :ip, :node_id, :room_id, :sensor_id, :sec_event_type_cd, :user_id
   
   belongs_to :user
   belongs_to :room
