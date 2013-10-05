@@ -18,9 +18,9 @@
 AutohomeWeb::Application.routes.draw do
 
   # Error page handling
-  match "/403", :to => 'error#error_403' # Forbidden
-  match "/404", :to => 'error#error_404' # Not Found
-  match "/500", :to => 'error#error_500' # Internal Server Error
+  match "403", :to => 'error#error_403' # Forbidden
+  match "404", :to => 'error#error_404' # Not Found
+  match "500", :to => 'error#error_500' # Internal Server Error
 
   # Administration Interface
   match "admin" => "admin#index", :as => 'admin', :via => :get
@@ -35,7 +35,10 @@ AutohomeWeb::Application.routes.draw do
 
 
   # User authentication juiciness
-  devise_for :users, :controllers => { :registrations => "registrations" }
+  devise_for :users, :controllers => { 
+        :registrations => "registrations",
+        :sessions => "sessions"
+  }
   devise_scope :user do
     get "users" => 'users#index', :as => :users
     get "users/:id" => 'users#show', :as => :user
@@ -55,11 +58,11 @@ AutohomeWeb::Application.routes.draw do
   # APIs
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      post "online" => 'data_collection#online'
       put  "report" => 'data_collection#report'
 
       # Authentication patterns
       namespace :auth do
+        post "online" => 'online#online'
         post 'rfid' => 'rfid#auth'
       end
     end

@@ -61,5 +61,7 @@ module AutohomeWeb
 
     # We catch all exceptions (aka "we do our own stunts")
     config.exceptions_app = self.routes
+
+    config.action_dispatch.rescue_responses["ApplicationController::ForbiddenException"] = :forbidden
   end
 end
