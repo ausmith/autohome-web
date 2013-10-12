@@ -4,7 +4,11 @@
 en:
   name: "Autohome"
   hello: "Hey there, "
+  general:
+    yes: "Yes"
+    no: "No"
   nav:
+    access_controls: "Access Controls"
     admin: "Administration"
     nodes: "Nodes"
     rooms: "Rooms"
@@ -19,6 +23,16 @@ en:
   user:
     access:
       denied: "You must be an administrator to access this page."
+    header:
+      show:         "User Profile: "
+    nav:
+      edit_profile: "Edit Profile"
+    profile:
+      deleted_date: "Date Deleted:"
+      first_name:   "First Name:"
+      last_name:    "Last Name:"
+      email:        "Email:"
+      admin:        "Is Admin:"
 
     account: "Account"
     login: "Log In"

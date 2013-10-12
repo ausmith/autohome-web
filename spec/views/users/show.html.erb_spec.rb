@@ -45,7 +45,31 @@ describe "users/show.html.erb" do
 
   it "shows the admin status" do
     render
-    assert_select "td", :text => "Admin:".to_s, :count => 1
+    assert_select "td", :text => "Is Admin:".to_s, :count => 1
+  end
+
+  it "shows the deleted date when the user is deleted and the user is an admin" do
+    my_current_user = stub_model(User,
+                                  :user_id => 22,
+                                  :first_name => "Adminie",
+                                  :last_name => "Usermon",
+                                  :email => "rooty@example.org",
+                                  :admin => true
+                                )
+    @user = assign(:user, stub_model(User,
+                              :user_id => 1,
+                              :first_name => "Johnny",
+                              :last_name => "Dough",
+                              :email => "johnny.dough@example.com",
+                              :admin => false,
+                              :deleted_at => Time.now
+                              )
+                  )
+
+
+    view.stub(:current_user).and_return(my_current_user)
+    render
+    assert_select "td", :text => "Date Deleted:".to_s, :count => 1
   end
 
   it "shows the edit link when the users match" do

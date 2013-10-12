@@ -1,30 +1,36 @@
-<h1>User Profile: <%= @user.display_full_name %></h1>
+<h1><%= t('user.header.show') %><%= @user.display_full_name %></h1>
 
 <table>
 	<tr>
-		<td>First Name:</td>
-		<td><%= @user.first_name %></td>
+          <td><%= t('user.profile.first_name') %></td>
+          <td><%= @user.first_name %></td>
 	</tr>
 	<tr>
-		<td>Last Name:</td>
-		<td><%= @user.last_name %></td>
+          <td><%= t('user.profile.last_name') %></td>
+          <td><%= @user.last_name %></td>
 	</tr>
 	<tr>
-		<td>Email:</td>
-		<td><%= @user.email %></td>
+          <td><%= t('user.profile.email') %></td>
+          <td><%= @user.email %></td>
 	</tr>
 	<tr>
-		<td>Admin:</td>
-		<td><%= @user.admin ? "Yes" : "No" %></td>
+          <td><%= t('user.profile.admin') %></td>
+          <td><%= t("general.#{@user.admin ? 'yes' : 'no' }") %></td>
 	</tr>
 	<tr>
 		<td><%= link_to t('nav.access_controls'), user_access_controls_path(@user) %></td>
 	</tr>
+        <% if current_user.admin && @user.deleted_at != nil %>
+          <tr>
+            <td><%= t('user.profile.deleted_date') %></td>
+            <td><%= @user.deleted_at %></td>
+          </tr>
+        <% end %>
 	  
 
 <% if current_user.admin || @user.id == current_user.id %>
 	<tr>
-          <td><%= link_to "Edit Profile", edit_user_path(@user) %></td>
+          <td><%= link_to t('user.nav.edit_profile'), edit_user_path(@user) %></td>
 	</tr>
 <% end %>
 </table>
