@@ -8,7 +8,7 @@ Feature: allow non-admin users to edit their own profile and admins to edit anyo
 	I want to edit any user's profile
 	So that I can update that user's profile
         
-        @wip
+        
         Scenario: a non-admin views another user's profile
                 Given I am registered as non-admin "nonadmin@example.com" with password "password"
                 When I logon as "nonadmin@example.com" with password "password"
