@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  class ForbiddenException < StandardError; end
   protect_from_forgery
 
   before_filter :set_locale
@@ -23,8 +24,7 @@ class ApplicationController < ActionController::Base
 
   def administrator_only_access
     unless user_signed_in? && current_user.admin?
-      render "error/error_403", status: 403
-      return false
+      raise ApplicationController::ForbiddenException
     end
   end
 end

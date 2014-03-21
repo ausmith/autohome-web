@@ -18,6 +18,7 @@ class ErrorController < ApplicationController
   private
 
   def handle_error(err)
+    @exception = env["action_dispatch.exception"]
     respond_to do |format|
       format.html { render :status => err }
       format.all  { render :nothing => true, :status => err }
