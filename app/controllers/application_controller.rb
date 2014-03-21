@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def administrator_only_access
     unless user_signed_in? && current_user.admin?
-      render :forbidden
+      render "error/error_403", status: 403
       return false
     end
   end

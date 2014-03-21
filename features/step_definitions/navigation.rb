@@ -32,3 +32,7 @@ end
 When(/^I am on the create_sensor page$/) do
   pending # express the regexp above with the code you wish you had
 end
+
+Then(/^I should get an HTTP (\d+) error$/) do |error_code|
+  page.status_code.should == error_code.to_i
+end
