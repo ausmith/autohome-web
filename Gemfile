@@ -74,8 +74,8 @@ group :development, :test do
   gem 'rspec'
   gem 'email_spec'
   gem 'rspec-rails'
-  gem 'ZenTest'
-  gem 'autotest-rails'
+  # gem 'ZenTest'
+  #gem 'autotest-rails'
   gem 'webrat'
   gem 'sqlite3'
 end
@@ -83,7 +83,7 @@ end
 group :test do
   gem 'cucumber-rails'     # Cucumber testing engine
   gem 'capybara'           # Testing web interfaces
-  gem 'capybara-webkit', '~> 0.11.0'    # Testing Javascript a headless browser. Build env can't use > 0.12 due to Qt4.7+ issues on old LTS
+  gem 'capybara-webkit'    # Testing Javascript a headless browser. Build env can't use > 0.12 due to Qt4.7+ issues on old LTS
   gem 'factory_girl_rails' # A replacement for fixtures (which kinda suck)
   gem 'timecop'            # Testing time-dependent code
   gem 'database_cleaner'   # Cleaning DB between tests
