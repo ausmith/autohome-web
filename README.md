@@ -11,7 +11,7 @@ This repository contains the web interface and main control system for the
 
 This will be improved upon later. For now, instructions are as follows:
 
-1. Install Rails 1.9 (developed on 1.9.3-p385)
+1. Install Rails 2.1 (developed on 2.1.1)
 2. Download code
 3. Set up to run with your favourite web server method (ie. Apache, Nginx, etc)
 4. ...?
@@ -23,8 +23,8 @@ All Autohome components are dual-licenced. For most people, Autohome and all of
 its components are licenced under the _GNU GPL v3_. For use in commercial
 products, another license applies. Please contact us for more information.
 
-    Autohome Arduino Components
-    Copyright (C) 2013 Brian Turchyn, Tyler Seredynski, Justin Blagden
+    Autohome Web Components
+    Copyright (C) 2013-2014 Brian Turchyn
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
