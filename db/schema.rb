@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130929182305) do
+ActiveRecord::Schema.define(:version => 20140322201048) do
 
   create_table "access_control_types", :force => true do |t|
     t.string   "name"

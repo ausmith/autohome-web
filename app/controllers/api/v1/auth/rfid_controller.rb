@@ -63,17 +63,34 @@ module Api
               if access_control.enabled == true
                 # All good. Audit the entry, perform any post-authing tasks
                 @result['result']['status_code'] = 0
+                event = SecEvent.create(
+                  sec_event_type_cd: 'RFIDSUCCES',
+                  ip: request.remote_ip,
+                  user_id: access_control.user_id,
+                  description: rfid_key)
               else
                 # Fail -- user not permitted access.
                 @result['result']['status_code'] = 3
+                event = SecEvent.create(
+                  sec_event_type_cd: 'RFIDDISABL',
+                  ip: request.remote_ip,
+                  user_id: access_control.user_id,
+                  description: rfid_key)
               end
             else
               @result['result']['status_code'] = 3
+                event = SecEvent.create(
+                  sec_event_type_cd: 'RFIDDNE',
+                  ip: request.remote_ip,
+                  description: rfid_key)
             end
 
           else
             # Everything is not okay; status code > 0
             @result['result']['status_code'] = 1
+                event = SecEvent.create(
+                  sec_event_type_cd: 'NODEFAIL',
+                  ip: request.remote_ip)
           end
 
           # All done; send off the response
