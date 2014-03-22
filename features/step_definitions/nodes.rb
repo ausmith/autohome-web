@@ -36,6 +36,7 @@ Given /^I have node "(.*?)" attached to rooms "(.*?)"$/ do |node, rooms|
 end
 
 Given /^at least one node exists$/ do
+  # TODO: Move to FactoryGirl
   n = Node.first;
   
   if( n == nil )
