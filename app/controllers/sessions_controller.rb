@@ -28,20 +28,22 @@ class SessionsController < Devise::SessionsController
 
   def log_auth_failure
     # Sign-in failure. See if the user existed or not
-    user = User.where(email: params[:user][:email]).first
-    event = SecEvent.new
-    event.ip = request.remote_ip
+    if !user_signed_in?
+      user = User.where(email: params[:user][:email]).first
+      event = SecEvent.new
+      event.ip = request.remote_ip
 
-    # If the user exists, mark as a failure
-    if user != nil
-      event.sec_event_type_cd = 'LOGINFAIL'
-      event.user_id = user.id
-    else
-      # User does not exist
-      event.sec_event_type_cd = 'LOGINDNE'
-      event.description = params[:user][:email]
+      # If the user exists, mark as a failure
+      if user != nil
+        event.sec_event_type_cd = 'LOGINFAIL'
+        event.user_id = user.id
+      else
+        # User does not exist
+        event.sec_event_type_cd = 'LOGINDNE'
+        event.description = params[:user][:email]
+      end
+
+      event.save
     end
-
-    event.save
   end
 end
