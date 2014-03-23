@@ -183,7 +183,7 @@ describe NodesController do
       }.to change(Node, :count).by(0)
     end
 
-    it "creates a new NODEDELETE audit entry" do
+    it "creates a new NODEDESTROY audit entry" do
       node = Node.create! valid_attributes
       # Assuming there are no other nodes in the database, this
       # specifies that the Node created on the previous line
@@ -192,7 +192,7 @@ describe NodesController do
       expect {
         delete :destroy, {:id => node.to_param}
       }.to change(SecEvent, :count).by(1)
-      expect(SecEvent.last.sec_event_type_cd).to eq('NODEDELETE')
+      expect(SecEvent.last.sec_event_type_cd).to eq('NODEDESTROY')
       expect(SecEvent.last.node_id).to eq(Node.last.id)
     end
 

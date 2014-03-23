@@ -103,7 +103,7 @@ class NodesController < ApplicationController
     @node = Node.available.find_by_id(params[:id])
     Node.transaction do
       @node.soft_delete
-      create_audit(:NODEDELETE, user_id: current_user.id, node_id: @node.id)
+      create_audit(:NODEDESTROY, user_id: current_user.id, node_id: @node.id)
     end
 
     respond_to do |format|

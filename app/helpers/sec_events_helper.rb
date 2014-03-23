@@ -8,16 +8,17 @@ module SecEventsHelper
       sensor_id: nil
     }.merge(options)
 
-    SecEvent.transaction do
-      e = SecEvent.new
-      e.sec_event_type_cd = type
-      e.ip = request.remote_ip
-      e.room_id = o[:room_id]
-      e.node_id = o[:node_id]
-      e.sensor_id = o[:sensor_id]
-      e.description = o[:description]
-      e.user_id = o[:user_id]
-      e.save
-    end
+    e = SecEvent.new
+    e.sec_event_type_cd = type
+    e.ip = request.remote_ip
+    e.room_id = o[:room_id]
+    e.node_id = o[:node_id]
+    e.sensor_id = o[:sensor_id]
+    e.description = o[:description]
+    e.user_id = o[:user_id]
+
+    raise ActiveRecord::Rollback unless e.valid?
+
+    e.save
   end
 end
