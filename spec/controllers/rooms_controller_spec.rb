@@ -146,11 +146,18 @@ describe RoomsController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested room" do
+    it "soft deletes the requested room" do
       room = Room.create! valid_attributes
       expect {
         delete :destroy, {:id => room.to_param}
-      }.to change(Room, :count).by(-1)
+      }.to change(Room.available, :count).by(-1)
+    end
+
+    it "does not hard delete the requested room" do
+      room = Room.create! valid_attributes
+      expect {
+        delete :destroy, {:id => room.to_param}
+      }.to change(Room, :count).by(0)
     end
 
     it "redirects to the rooms list" do

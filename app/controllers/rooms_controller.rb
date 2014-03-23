@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.available.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
   end
 
   # POST /rooms
@@ -56,7 +56,7 @@ class RoomsController < ApplicationController
   # PUT /rooms/1
   # PUT /rooms/1.json
   def update
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
 
     respond_to do |format|
       if @room.update_attributes(params[:room])
@@ -72,8 +72,8 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
-    @room = Room.find(params[:id])
-    @room.destroy
+    @room = Room.available.find(params[:id])
+    @room.soft_delete
 
     respond_to do |format|
       format.html { redirect_to rooms_url }
