@@ -72,6 +72,14 @@ describe RoomsController do
         }.to change(Room, :count).by(1)
       end
 
+      it "creates a new ROOMCREATE audit entry" do
+        expect {
+          post :create, {:room => valid_attributes}
+        }.to change(SecEvent, :count).by(1)
+        expect(SecEvent.last.sec_event_type_cd).to eq('ROOMCREATE')
+        expect(SecEvent.last.room_id).to eq(Room.last.id)
+      end
+
       it "assigns a newly created room as @room" do
         post :create, {:room => valid_attributes}
         assigns(:room).should be_a(Room)
@@ -111,6 +119,19 @@ describe RoomsController do
         # submitted in the request.
         Room.any_instance.should_receive(:update_attributes).with({ "name" => "MyString" })
         put :update, {:id => room.to_param, :room => { "name" => "MyString" }}
+      end
+
+      it "creates a new ROOMUPDATE audit entry" do
+        room = Room.create! valid_attributes
+        # Assuming there are no other rooms in the database, this
+        # specifies that the Room created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        expect {
+          put :update, {:id => room.to_param, :room => { "name" => "MyString" }}
+        }.to change(SecEvent, :count).by(1)
+        expect(SecEvent.last.sec_event_type_cd).to eq('ROOMUPDATE')
+        expect(SecEvent.last.room_id).to eq(room.id)
       end
 
       it "assigns the requested room as @room" do
@@ -158,6 +179,15 @@ describe RoomsController do
       expect {
         delete :destroy, {:id => room.to_param}
       }.to change(Room, :count).by(0)
+    end
+
+    it "creates a new ROOMDESTROY audit entry" do
+      room = Room.create! valid_attributes
+      expect {
+        delete :destroy, {:id => room.to_param}
+      }.to change(SecEvent, :count).by(1)
+      expect(SecEvent.last.sec_event_type_cd).to eq('ROOMDESTROY')
+      expect(SecEvent.last.room_id).to eq(room.id)
     end
 
     it "redirects to the rooms list" do
