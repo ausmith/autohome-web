@@ -46,8 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(@user.to_key)  # MUST occure BEFORE @user.accessible is assigned
 
     if current_user.admin
-           @user.accessible = :all   # allows admins to edit admin status
-           puts "Accessible: #{@user.accessible}"
+      @user.accessible = :all   # allows admins to edit admin status
     end
 
     if params[:user][:password].blank?  # possibly superfluous

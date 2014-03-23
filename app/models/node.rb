@@ -23,6 +23,8 @@ class Node < ActiveRecord::Base
     :error => 4
   }
 
+  scope :available, conditions: { deleted_at: nil }
+
   attr_accessible :mac_address, :status, :take_offline, :room_ids, :room_id
   attr_accessor :old_one_time_key, :old_initialization_key
   has_and_belongs_to_many :rooms
@@ -50,6 +52,11 @@ class Node < ActiveRecord::Base
   def update_initialization_key
     self.old_initialization_key = self.initialization_key
     self.initialization_key = SecureRandom.hex(32)
+  end
+
+  def soft_delete
+    self.deleted_at = Time.now
+    self.save!
   end
 
   protected

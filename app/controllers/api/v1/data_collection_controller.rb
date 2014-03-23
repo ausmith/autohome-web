@@ -36,7 +36,7 @@ module Api
         initialization_key = params[:initialization_key] || params[:I]
 
         # Fetch the node if it exists
-        node = Node.find_by_mac_address(mac)
+        node = Node.available.find_by_mac_address(mac)
         node_nil = node == nil
         key_valid = !node_nil && initialization_key == node.initialization_key
 
@@ -81,7 +81,7 @@ module Api
         key = params[:one_time_key] || params[:O]
 
         # Fetch the node if it exists
-        node = Node.find_by_mac_address(mac)
+        node = Node.available.find_by_mac_address(mac)
         node_nil = node == nil
         key_valid = !node_nil && key == node.one_time_key
 
@@ -169,7 +169,7 @@ module Api
     auth_key = params[:auth_key]
 
     # Fetch the node if it exists
-    node = Node.find_by_mac_address(mac)
+    node = Node.available.find_by_mac_address(mac)
     node_nil = node == nil
     key_valid = !node_nil && one_time_key == node.one_time_key
 
@@ -180,9 +180,9 @@ module Api
     if key_valid
       # Everything looks good
       node.update_one_time_key
-      
+
       # Auth a user (hopefully)
-      
+
       access_right = AccessControl.where(:access_control_type_id => auth_type, :value => auth_key, :enabled => true)
 
       if access_right != nil

@@ -23,7 +23,7 @@ module Api
         skip_before_filter :verify_authenticity_token
         respond_to :json
         respond_to :txt
-        
+
         def auth
           # Grab parameters
           mac = params[:mac_address] || params[:M]
@@ -31,7 +31,7 @@ module Api
           rfid_key = params[:rfid_id] || params[:R]
 
           # Fetch node if it exists
-          node = Node.find_by_mac_address(mac)
+          node = Node.available.find_by_mac_address(mac)
           node_nil = node == nil
           key_valid = !node_nil && key == node.one_time_key
 

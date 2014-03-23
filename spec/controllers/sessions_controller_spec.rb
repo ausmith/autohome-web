@@ -39,7 +39,6 @@ describe SessionsController do
       }.to change(SecEvent, :count).by(1)
 
       response.status.should eq(200)
-      response.should_not redirect_to('/')
 
       event = SecEvent.last
 
@@ -53,7 +52,6 @@ describe SessionsController do
       }.to change(SecEvent, :count).by(1)
 
       response.status.should eq(200)
-      response.should_not redirect_to('/')
 
       event = SecEvent.last
 
