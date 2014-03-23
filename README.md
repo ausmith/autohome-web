@@ -11,11 +11,12 @@ This repository contains the web interface and main control system for the
 
 This will be improved upon later. For now, instructions are as follows:
 
-1. Install Rails 2.1 (developed on 2.1.1)
-2. Download code
+1. Install Ruby 2.1 (developed on 2.1.1 and Rails 3.2)
+2. Download code (either clone or grab a [ZIP](https://github.com/autohome/autohome-web/archive/master.zip))
 3. Set up to run with your favourite web server method (ie. Apache, Nginx, etc)
+4. Run `rake db:setup`
 4. ...?
-5. ~~Profit~~Automate!
+5. <s>Profit</s> Automate!
 
 # License
 
