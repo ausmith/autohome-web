@@ -16,7 +16,7 @@ This will be improved upon later. For now, instructions are as follows:
 3. Set up to run with your favourite web server method (ie. Apache, Nginx, etc)
 4. Run `rake db:setup`
 4. ...?
-5. <s>Profit</s> Automate!
+5. ~~Profit~~ Automate!
 
 # License
 
