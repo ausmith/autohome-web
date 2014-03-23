@@ -1,11 +1,11 @@
 <h1>Listing nodes</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
-    <th>Mac address</th>
-    <th>Ip address</th>
+    <th>MAC address</th>
+    <th>IP address</th>
     <th>Status</th>
-    <th>Take offline</th>
+    <th>Offline?</th>
     <th>Last online</th>
     <th>Room</th>
     <th></th>
@@ -20,7 +20,7 @@
     <td><%= node.status %></td>
     <td><%= node.take_offline %></td>
     <td><%= node.last_online %></td>
-    <td><%= node.room_id %></td>
+    <td><%= node.rooms.map{ |r| r.name }.join(", ") %></td>
     <td><%= link_to 'Show', node %></td>
     <td><%= link_to 'Edit', edit_node_path(node) %></td>
     <td><%= link_to 'Destroy', node, method: :delete, data: { confirm: 'Are you sure?' } %></td>
