@@ -19,6 +19,8 @@ module Api
   module V1
     module Auth
       class RfidController < ApplicationController
+        include SecEventsHelper
+
         skip_before_filter :authenticate_user!
         skip_before_filter :verify_authenticity_token
         respond_to :json
@@ -63,34 +65,28 @@ module Api
               if access_control.enabled == true
                 # All good. Audit the entry, perform any post-authing tasks
                 @result['result']['status_code'] = 0
-                event = SecEvent.create(
-                  sec_event_type_cd: 'RFIDSUCCES',
-                  ip: request.remote_ip,
-                  user_id: access_control.user_id,
-                  description: rfid_key)
+
+                create_audit(:RFIDSUCCES,
+                             user_id: access_control.user_id,
+                             description: rfid_key)
               else
                 # Fail -- user not permitted access.
                 @result['result']['status_code'] = 3
-                event = SecEvent.create(
-                  sec_event_type_cd: 'RFIDDISABL',
-                  ip: request.remote_ip,
-                  user_id: access_control.user_id,
-                  description: rfid_key)
+                create_audit(:RFIDDISABL,
+                             user_id: access_control.user_id,
+                             description: rfid_key)
               end
             else
               @result['result']['status_code'] = 3
-                event = SecEvent.create(
-                  sec_event_type_cd: 'RFIDDNE',
-                  ip: request.remote_ip,
-                  description: rfid_key)
+              create_audit(:RFIDDNE,
+                            description: rfid_key)
             end
 
           else
             # Everything is not okay; status code > 0
             @result['result']['status_code'] = 1
-                event = SecEvent.create(
-                  sec_event_type_cd: 'NODEFAIL',
-                  ip: request.remote_ip)
+            create_audit(:NODEFAIL,
+                          description: rfid_key)
           end
 
           # All done; send off the response
