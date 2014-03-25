@@ -66,6 +66,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'yard'
+  gem 'bullet'
 end
 
 group :development, :test do

@@ -23,7 +23,7 @@ class Node < ActiveRecord::Base
     :error => 4
   }
 
-  scope :available, conditions: { deleted_at: nil }
+  scope :available, conditions: { deleted_at: nil }, include: :rooms
 
   attr_accessible :mac_address, :status, :take_offline, :room_ids, :room_id
   attr_accessor :old_one_time_key, :old_initialization_key

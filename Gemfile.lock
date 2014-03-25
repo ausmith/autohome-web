@@ -62,6 +62,9 @@ GEM
       sass (>= 3.2.0)
       thor
     builder (3.0.4)
+    bullet (4.8.0)
+      activesupport
+      uniform_notifier (>= 1.4.0)
     callsite (0.0.11)
     capistrano (3.1.0)
       i18n
@@ -312,6 +315,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uniform_notifier (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
     webrat (0.7.3)
@@ -330,6 +334,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bourbon
+  bullet
   capistrano
   capybara
   capybara-webkit
