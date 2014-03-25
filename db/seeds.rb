@@ -32,3 +32,7 @@ SecEventType.where(type_cd: 'NODEDESTROY', description: 'sec_event_types.node.de
 SecEventType.where(type_cd: 'ROOMCREATE', description: 'sec_event_types.room.create').first_or_create
 SecEventType.where(type_cd: 'ROOMUPDATE', description: 'sec_event_types.room.update').first_or_create
 SecEventType.where(type_cd: 'ROOMDESTROY', description: 'sec_event_types.room.destroy').first_or_create
+
+SecEventType.where(type_cd: 'NODEONLINESUCCESS', description: 'sec_event_types.api.v1.auth.online.success').first_or_create
+SecEventType.where(type_cd: 'NODEONLINEKEYFAIL', description: 'sec_event_types.api.v1.auth.online.keyfail').first_or_create
+SecEventType.where(type_cd: 'NODEONLINEFAIL', description: 'sec_event_types.api.v1.auth.online.fail').first_or_create
