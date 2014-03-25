@@ -48,7 +48,7 @@ gem 'bourbon'      # Scss pre-made styles. Could be useful; not 100% if we need 
 #gem 'paperclip'   # Attaching files. Not sure if we need this
 gem 'sass'         # SASS CSS language
 gem 'high_voltage' # Semi-static pages. Likely will be used for help pages.
-gem 'twitter-bootstrap-rails' # Twitter Bootstrap integration with Rails env
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'bootstrap3' # Twitter Bootstrap integration with Rails env
 gem 'airbrake'           # Error tracking
 gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
 gem 'coveralls', require: false
@@ -60,6 +60,7 @@ group :development do
   gem 'guard'
   gem 'guard-cucumber'
   gem 'guard-rspec'
+  gem 'guard-test'
   gem 'growl'
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -75,8 +76,6 @@ group :development, :test do
   gem 'rspec'
   gem 'email_spec'
   gem 'rspec-rails'
-  # gem 'ZenTest'
-  #gem 'autotest-rails'
   gem 'webrat'
   gem 'sqlite3'
 end
