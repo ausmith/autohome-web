@@ -31,39 +31,6 @@ describe Api::V1::DataCollectionController do
     token = FactoryGirl.create(:rfid_access_control)
   end
 
-  describe "POST online" do
-    it "has full-hand notation" do
-      post :online, {
-        mac_address: node.mac_address,
-        initialization_key: node.initialization_key
-      }
-
-      result = assigns(:result)
-
-      result.should_not be_nil
-    end
-
-    it "has short-hand notation" do
-      post :online, {
-        M: node.mac_address,
-        I: node.initialization_key
-      }
-
-      result = assigns(:result)
-
-      result.should_not be_nil
-    end
-
-    it "provides a new one-time key"
-
-    it "provides a new initialazation key"
-
-    it "creates an NODEONLINESUCCESS audit entry on success"
-
-    it "creates an NODEONLINEKEYFAIL audit entry when the initialization key is wrong"
-
-    it "creates an NODEONLINEFAIL audit entry when there is an unknown issue"
-  end
 
 end
 
