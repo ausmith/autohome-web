@@ -76,3 +76,31 @@ en:
     library_file_too_long: "Library file must be at most 64 characters long."
     library_file_bad_format: "Library file must end with \".rb\"."
 
+
+  sec_event_types:
+    auth:
+      node:
+        keypass: "Node successfully authenticated with server"
+        keyfail: "Node failed to authenticate with server"
+
+      rfid:
+        carddne: "Card ID \"%{description}\" was swiped but does not exist"
+        carddisabled: "Card ID \"%{description}\" was swiped but is disabled"
+        accesssuccess: "Card ID \"%{description}\" was swiped successfully"
+
+      web:
+        loginsuccess: "User successfully logged in"
+        loginpwfail: "User provided invalid password"
+        loginuserdne: "User \"%{description}\" does not exist"
+        loginpwreset: "User requested a password reset"
+
+    node:
+      create: "Node was successfully created"
+      update: "Node was successfully updated"
+      destroy: "Node was successfully deleted"
+
+    room:
+      create: "Room was successfully created"
+      update: "Room was successfully updated"
+      destroy: "Room was successfully deleted"
+
