@@ -9,4 +9,7 @@ class SecEvent < ActiveRecord::Base
     :foreign_key => 'sec_event_type_cd', :inverse_of => :sec_events
 
   validates :sec_event_type, presence: true
+
+  scope :available, include: [:user, :room, :node, :sensor, :sec_event_type]
+  scope :recent, order: 'created_at DESC'
 end
