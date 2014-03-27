@@ -48,40 +48,38 @@ module Api
               @result['result']['status_code'] = 2
             else
               @result['result']['new_one_time_key'] = node.one_time_key
-            end
+              # Look for the RFID access control with this ID
+              access_control = AccessControl.joins(
+                :access_control_type
+              ).where(
+                access_control_types: {
+                  id: 1
+                },
+                value: rfid_key
+              ).first
 
-            # Look for the RFID access control with this ID
-            access_control = AccessControl.joins(
-              :access_control_type
-            ).where(
-              access_control_types: {
-                id: 1
-              },
-              value: rfid_key
-            ).first
+              if access_control != nil
+                # We have an access control mechanism. Check if it is enabled
+                if access_control.enabled == true
+                  # All good. Audit the entry, perform any post-authing tasks
+                  @result['result']['status_code'] = 0
 
-            if access_control != nil
-              # We have an access control mechanism. Check if it is enabled
-              if access_control.enabled == true
-                # All good. Audit the entry, perform any post-authing tasks
-                @result['result']['status_code'] = 0
-
-                create_audit(:RFIDSUCCES,
-                             user_id: access_control.user_id,
-                             description: rfid_key)
+                  create_audit(:RFIDSUCCES,
+                              user_id: access_control.user_id,
+                              description: rfid_key)
+                else
+                  # Fail -- user not permitted access.
+                  @result['result']['status_code'] = 3
+                  create_audit(:RFIDDISABL,
+                              user_id: access_control.user_id,
+                              description: rfid_key)
+                end
               else
-                # Fail -- user not permitted access.
                 @result['result']['status_code'] = 3
-                create_audit(:RFIDDISABL,
-                             user_id: access_control.user_id,
-                             description: rfid_key)
+                create_audit(:RFIDDNE,
+                              description: rfid_key)
               end
-            else
-              @result['result']['status_code'] = 3
-              create_audit(:RFIDDNE,
-                            description: rfid_key)
             end
-
           else
             # Everything is not okay; status code > 0
             @result['result']['status_code'] = 1
