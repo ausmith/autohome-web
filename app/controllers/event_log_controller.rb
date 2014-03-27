@@ -3,8 +3,4 @@ class EventLogController < ApplicationController
   def index
     @events = SecEvent.available.recent.page(params[:page] || 1)
   end
-
-  def show
-    @event = SecEvent.find_by_id(params[:id])
-  end
 end

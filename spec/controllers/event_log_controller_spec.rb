@@ -50,34 +50,4 @@ describe EventLogController do
       response.code.should eq("200")
     end
   end
-
-  describe "GET 'show'" do
-    it "redirects when not logged in" do
-      sec_event = create_event
-      get 'show', id: sec_event.id
-      response.should redirect_to(new_user_session_url)
-    end
-
-    it "throws a 403 when the user is not admin" do
-      user = FactoryGirl.create(:regular_user)
-      user.confirm!
-      sign_in :user, user
-
-      sec_event = create_event
-
-      expect {
-        get 'show', id: sec_event.id
-      }.to raise_error(ApplicationController::ForbiddenException)
-    end
-
-    it "returns http success" do
-      sec_event = create_event
-      login
-      get 'show', id: sec_event.id
-      assigns(:event).should eq(sec_event)
-      response.should be_success
-      response.code.should eq("200")
-    end
-  end
-
 end

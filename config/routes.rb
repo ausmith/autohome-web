@@ -34,7 +34,6 @@ AutohomeWeb::Application.routes.draw do
     resources :nodes
 
     get "event_log" => "event_log#index", :as => :event_log
-    get "event_log/:id" => "event_log#show", :as => :event
   end
 
 
