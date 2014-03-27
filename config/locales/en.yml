@@ -14,6 +14,7 @@ en:
     rooms: "Rooms"
     settings: "System Settings"
     data_types: "Data Types"
+    sec_events: "Security Events"
     sensor_types: "Sensor Types"
     sensors: "Sensors"
     users: "User Accounts"
@@ -75,6 +76,8 @@ en:
     name_too_long: "Name must be at most 32 characters long."
     library_file_too_long: "Library file must be at most 64 characters long."
     library_file_bad_format: "Library file must end with \".rb\"."
+  sec_events:
+    no_events: "No security events match your current criteria."
 
 
   sec_event_types:

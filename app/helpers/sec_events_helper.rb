@@ -27,7 +27,7 @@ module SecEventsHelper
       room: get_room_link(event.room),
       node: get_node_link(event.node),
       sensor: get_sensor_link(event.sensor),
-      room: get_room_link(event.room),
+      user: get_user_link(event.user),
       description: event.description)
   end
 end
