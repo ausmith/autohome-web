@@ -23,8 +23,6 @@ module SecEventsHelper
   end
 
   def build_sec_event_description(event)
-    puts event
-    puts event.sec_event_type_cd
     t(event.sec_event_type.description,
       room: get_room_link(event.room),
       node: get_node_link(event.node),
