@@ -10,14 +10,14 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe NodesHelper do
-  it "outputs \"-\" when the node is empty" do
-    get_node_link(nil).should == '-'
+describe SensorsHelper do
+  it "outputs \"-\" when the sensor is empty" do
+    get_sensor_link(nil).should == '-'
   end
 
-  it "outputs a link to a node when the node is not empty" do
-    node = stub_model(Node, mac_address: '00:11:22:33:44:56', id: 321)
+  it "outputs a link to a sensor when the sensor is not empty" do
+    sensor = stub_model(Sensor, name: "RSpec Sensor", id: 321)
 
-    get_node_link(node).should == link_to(node.mac_address, node)
+    get_sensor_link(sensor).should == link_to(sensor.name, sensor)
   end
 end
