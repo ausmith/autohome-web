@@ -53,6 +53,7 @@ gem 'airbrake'           # Error tracking
 gem 'enumerated_attribute', :git => 'git://github.com/jeffp/enumerated_attribute.git' # Allows for enums in migrations
 gem 'coveralls', require: false
 gem 'therubyracer'       # V8 Javascript interpreter for Ruby
+gem 'kaminari'     # Pagination
 
 
 group :development do
