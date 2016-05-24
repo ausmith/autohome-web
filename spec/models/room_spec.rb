@@ -23,4 +23,11 @@ describe Room do
     FactoryGirl.build(:room, :name => nil).should_not be_valid
     FactoryGirl.build(:room, :name => "").should_not be_valid
   end
+
+  it "can soft delete itself" do
+    r = FactoryGirl.create(:room)
+    r.deleted_at.should be_nil
+    r.soft_delete
+    r.deleted_at.should_not be_nil
+  end
 end

@@ -18,11 +18,13 @@
 require 'spec_helper'
 
 describe Api::V1::Auth::RfidController do
-  let(:valid_attributes) {
-    {
-      
-    }
-  }
+  def validate_result( result, **args )
+      result.should_not be_nil
+      result['result'].should_not be_nil
+      result['result']['status_code'].should == args[:status_code]
+      result['result']['new_one_time_key'].should_not be_nil unless args[:nil_otk]
+      result['result']['new_one_time_key'].should be_nil if args[:nil_otk]
+  end
 
   node = nil
   token = nil
@@ -37,51 +39,58 @@ describe Api::V1::Auth::RfidController do
   describe "POST auth" do
     # Assuming auth is already done
     it "has full-hand notation" do
-      post :auth, {
-        :mac_address => node.mac_address,
-        :rfid_id => token.value,
-        :one_time_key => node.one_time_key
-      }
-      result = assigns(:result)
+      expect {
+        post :auth, {
+          :mac_address => node.mac_address,
+          :rfid_id => token.value,
+          :one_time_key => node.one_time_key
+        }
+      }.to change(SecEvent, :count).by(1)
 
-      result.should_not be_nil
-      result['result'].should_not be_nil
-      result['result']['status_code'].should == 0
-      result['result']['new_one_time_key'].should_not be_nil
-      
+      result = assigns(:result)
+      validate_result(result, status_code: 0)
       node.one_time_key = result['result']['new_one_time_key']
+
+      event = SecEvent.last
+
+      event.should_not be_nil
+      event.sec_event_type_cd.should eq('RFIDSUCCES')
     end
 
     it "has short-hand notation" do
-      post :auth, {
-        :M => node.mac_address,
-        :R => token.value,
-        :O => node.one_time_key
-      }
+      expect {
+        post :auth, {
+          :M => node.mac_address,
+          :R => token.value,
+          :O => node.one_time_key
+        }
+      }.to change(SecEvent, :count).by(1)
       result = assigns(:result)
-
-      result.should_not be_nil
-      result['result'].should_not be_nil
-      result['result']['status_code'].should == 0
-      result['result']['new_one_time_key'].should_not be_nil
-      
+      validate_result(result, status_code: 0)
       node.one_time_key = result['result']['new_one_time_key']
+
+      event = SecEvent.last
+
+      event.should_not be_nil
+      event.sec_event_type_cd.should eq('RFIDSUCCES')
     end
 
     it "rejects RFID access tokens that do not exist" do
-      post :auth, {
-        :M => node.mac_address,
-        :R => token.value + "a",
-        :O => node.one_time_key
-      }
+      expect {
+        post :auth, {
+          :M => node.mac_address,
+          :R => token.value + "a",
+          :O => node.one_time_key
+        }
+      }.to change(SecEvent, :count).by(1)
       result = assigns(:result)
-
-      result.should_not be_nil
-      result['result'].should_not be_nil
-      result['result']['status_code'].should == 3
-      result['result']['new_one_time_key'].should_not be_nil
-      
+      validate_result(result, status_code: 3)
       node.one_time_key = result['result']['new_one_time_key']
+
+      event = SecEvent.last
+
+      event.should_not be_nil
+      event.sec_event_type_cd.should eq('RFIDDNE')
     end
 
     it "rejects RFID access tokens that are not enabled" do
@@ -89,19 +98,39 @@ describe Api::V1::Auth::RfidController do
       token.enabled = false
       token.save
 
-      post :auth, {
-        :M => node.mac_address,
-        :R => token.value,
-        :O => node.one_time_key
-      }
+      expect {
+        post :auth, {
+          :M => node.mac_address,
+          :R => token.value,
+          :O => node.one_time_key
+        }
+      }.to change(SecEvent, :count).by(1)
       result = assigns(:result)
-
-      result.should_not be_nil
-      result['result'].should_not be_nil
-      result['result']['status_code'].should == 3
-      result['result']['new_one_time_key'].should_not be_nil
-      
+      validate_result(result, status_code: 3)
       node.one_time_key = result['result']['new_one_time_key']
+
+      event = SecEvent.last
+
+      event.should_not be_nil
+      event.sec_event_type_cd.should eq('RFIDDISABL')
+    end
+
+    it "logs an error code 2 when an unknown error occurs" do
+      # Change the token so that it is disabled.
+      token.enabled = false
+      token.save
+
+      Node.any_instance.stub(:save!).and_return(false)
+
+      expect {
+        post :auth, {
+          :M => node.mac_address,
+          :R => token.value,
+          :O => node.one_time_key
+        }
+      }.to change(SecEvent, :count).by(0)
+      result = assigns(:result)
+      validate_result(result, status_code: 2, nil_otk: true)
     end
 
     it "rejects requests that provide an invalid one-time-key" do
@@ -109,19 +138,21 @@ describe Api::V1::Auth::RfidController do
       token.enabled = false
       token.save
 
-      post :auth, {
-        :M => node.mac_address,
-        :R => token.value,
-        :O => node.one_time_key + "a"
-      }
+      expect {
+        post :auth, {
+          :M => node.mac_address,
+          :R => token.value,
+          :O => node.one_time_key + "a"
+        }
+      }.to change(SecEvent, :count).by(1)
       result = assigns(:result)
-
-      result.should_not be_nil
-      result['result'].should_not be_nil
-      result['result']['status_code'].should == 1
-      result['result']['new_one_time_key'].should be_nil
-      
+      validate_result(result, status_code: 1, nil_otk: true)
       node.one_time_key = result['result']['new_one_time_key']
+
+      event = SecEvent.last
+
+      event.should_not be_nil
+      event.sec_event_type_cd.should eq('NODEFAIL')
     end
   end
 end

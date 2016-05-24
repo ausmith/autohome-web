@@ -1,0 +1,25 @@
+<h1><%= t('nav.sec_events') %></h1>
+<% if @events %>
+  <%= paginate @events %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><%= t('sec_events.date') %></th>
+        <th><%= t('sec_events.user') %></th>
+        <th><%= t('sec_events.description') %></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @events.each do |e| %>
+      <tr>
+        <td><%= e.created_at %></td>
+        <td><%= get_user_link(e.user) %></td>
+        <td><%= build_sec_event_description(e) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @events %>
+<% else %>
+  <div class="alert alert-info"><%= t('sec_events.no_events') %></div>
+<% end %>

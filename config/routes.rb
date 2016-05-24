@@ -17,6 +17,7 @@
 
 AutohomeWeb::Application.routes.draw do
 
+
   # Error page handling
   match "403", :to => 'error#error_403' # Forbidden
   match "404", :to => 'error#error_404' # Not Found
@@ -31,6 +32,8 @@ AutohomeWeb::Application.routes.draw do
     resources :data_types
     resources :rooms
     resources :nodes
+
+    get "event_log" => "event_log#index", :as => :event_log
   end
 
 

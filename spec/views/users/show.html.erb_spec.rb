@@ -28,6 +28,11 @@ describe "users/show.html.erb" do
     assert_select "h1", :text => "User Profile: Johnny Dough".to_s, :count => 1
   end
 
+  it "has a link to \"Access Controls\"" do
+    render
+    assert_select "tr>td>a", :text => "Access Controls".to_s, :count => 1
+  end
+
   it "shows the first name" do
     render
     assert_select "td", :text => "First Name:".to_s, :count => 1

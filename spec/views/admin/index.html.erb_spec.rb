@@ -10,5 +10,7 @@ describe "admin/index.html.erb" do
     assert_select "li", :text => "Sensor Types".to_s, :count => 1
     assert_select "li", :text => "Sensors".to_s, :count => 1
     assert_select "li", :text => "User Accounts".to_s, :count => 1
+    assert_select "li", :text => "User Signup".to_s, :count => 1
+    assert_select "li", :text => "Security Events".to_s, :count => 1
   end
 end

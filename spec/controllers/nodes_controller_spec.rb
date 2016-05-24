@@ -74,6 +74,14 @@ describe NodesController do
         }.to change(Node, :count).by(1)
       end
 
+      it "creates a new NODECREATE audit entry" do
+        expect {
+          post :create, {:node => valid_attributes}
+        }.to change(SecEvent, :count).by(1)
+        expect(SecEvent.last.sec_event_type_cd).to eq('NODECREATE')
+        expect(SecEvent.last.node_id).to eq(Node.last.id)
+      end
+
       it "assigns a newly created node as @node" do
         post :create, {:node => valid_attributes}
         assigns(:node).should be_a(Node)
@@ -115,6 +123,19 @@ describe NodesController do
         put :update, {:id => node.to_param, :node => { "mac_address" => "MyString" }}
       end
 
+      it "creates a new NODEUPDATE audit entry" do
+        node = Node.create! valid_attributes
+        # Assuming there are no other nodes in the database, this
+        # specifies that the Node created on the previous line
+        # receives the :update_attributes message with whatever params are
+        # submitted in the request.
+        expect {
+          put :update, {:id => node.to_param, :node => { "mac_address" => "MyString" }}
+        }.to change(SecEvent, :count).by(1)
+        expect(SecEvent.last.sec_event_type_cd).to eq('NODEUPDATE')
+        expect(SecEvent.last.node_id).to eq(Node.last.id)
+      end
+
       it "assigns the requested node as @node" do
         node = Node.create! valid_attributes
         put :update, {:id => node.to_param, :node => valid_attributes}
@@ -148,11 +169,31 @@ describe NodesController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested node" do
+    it "soft-deletes the requested node" do
       node = Node.create! valid_attributes
       expect {
         delete :destroy, {:id => node.to_param}
-      }.to change(Node, :count).by(-1)
+      }.to change(Node.available, :count).by(-1)
+    end
+
+    it "does not destroy the requested node" do
+      node = Node.create! valid_attributes
+      expect {
+        delete :destroy, {:id => node.to_param}
+      }.to change(Node, :count).by(0)
+    end
+
+    it "creates a new NODEDESTROY audit entry" do
+      node = Node.create! valid_attributes
+      # Assuming there are no other nodes in the database, this
+      # specifies that the Node created on the previous line
+      # receives the :update_attributes message with whatever params are
+      # submitted in the request.
+      expect {
+        delete :destroy, {:id => node.to_param}
+      }.to change(SecEvent, :count).by(1)
+      expect(SecEvent.last.sec_event_type_cd).to eq('NODEDESTROY')
+      expect(SecEvent.last.node_id).to eq(Node.last.id)
     end
 
     it "redirects to the nodes list" do

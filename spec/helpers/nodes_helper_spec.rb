@@ -11,5 +11,13 @@ require 'spec_helper'
 #   end
 # end
 describe NodesHelper do
-  #pending "add some examples to (or delete) #{__FILE__}"
+  it "outputs \"-\" when the node is empty" do
+    get_node_link(nil).should == '-'
+  end
+
+  it "outputs a link to a node when the node is not empty" do
+    node = stub_model(Node, mac_address: '00:11:22:33:44:56', id: 321)
+
+    get_node_link(node).should == link_to(node.mac_address, node)
+  end
 end

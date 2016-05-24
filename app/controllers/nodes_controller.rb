@@ -16,10 +16,11 @@
 ###############################################################################
 
 class NodesController < ApplicationController
+  include SecEventsHelper
   # GET /nodes
   # GET /nodes.json
   def index
-    @nodes = Node.all
+    @nodes = Node.available
 
     respond_to do |format|
       format.html # index.html.erb
@@ -30,7 +31,7 @@ class NodesController < ApplicationController
   # GET /nodes/1
   # GET /nodes/1.json
   def show
-    @node = Node.find(params[:id])
+    @node = Node.available.find_by_id(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -51,13 +52,16 @@ class NodesController < ApplicationController
 
   # GET /nodes/1/edit
   def edit
-    @node = Node.find(params[:id])
+    @node = Node.available.find_by_id(params[:id])
   end
 
   # POST /nodes
   # POST /nodes.json
   def create
-    @node = Node.new(params[:node])
+    Node.transaction do
+      @node = Node.create(params[:node])
+      create_audit(:NODECREATE, user_id: current_user.id, node_id: @node.id)
+    end
 
     respond_to do |format|
       if @node.save
@@ -73,10 +77,17 @@ class NodesController < ApplicationController
   # PUT /nodes/1
   # PUT /nodes/1.json
   def update
-    @node = Node.find(params[:id])
+    result = false
+    @node = Node.available.find_by_id(params[:id])
+    if @node
+      Node.transaction do
+        result = @node.update_attributes(params[:node])
+        create_audit(:NODEUPDATE, user_id: current_user.id, node_id: @node.id)
+      end
+    end
 
     respond_to do |format|
-      if @node.update_attributes(params[:node])
+      if result
         format.html { redirect_to @node, notice: 'Node was successfully updated.' }
         format.json { head :no_content }
       else
@@ -89,8 +100,11 @@ class NodesController < ApplicationController
   # DELETE /nodes/1
   # DELETE /nodes/1.json
   def destroy
-    @node = Node.find(params[:id])
-    @node.destroy
+    @node = Node.available.find_by_id(params[:id])
+    Node.transaction do
+      @node.soft_delete
+      create_audit(:NODEDESTROY, user_id: current_user.id, node_id: @node.id)
+    end
 
     respond_to do |format|
       format.html { redirect_to nodes_url }

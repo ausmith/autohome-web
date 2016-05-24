@@ -1,8 +1,9 @@
 class RoomsController < ApplicationController
+  include SecEventsHelper
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms = Room.available.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,7 @@ class RoomsController < ApplicationController
   # GET /rooms/1
   # GET /rooms/1.json
   def show
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,16 +35,19 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
   end
 
   # POST /rooms
   # POST /rooms.json
   def create
-    @room = Room.new(params[:room])
+    Room.transaction do
+      @room = Room.create(params[:room])
+      create_audit(:ROOMCREATE, room_id: @room.id, user_id: current_user.id)
+    end
 
     respond_to do |format|
-      if @room.save
+      if @room.id != nil
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
         format.json { render json: @room, status: :created, location: @room }
       else
@@ -56,10 +60,16 @@ class RoomsController < ApplicationController
   # PUT /rooms/1
   # PUT /rooms/1.json
   def update
-    @room = Room.find(params[:id])
+    @room = Room.available.find(params[:id])
+    result = false
+
+    Room.transaction do
+      result = @room.update_attributes(params[:room])
+      create_audit(:ROOMUPDATE, room_id: @room.id, user_id: current_user.id)
+    end
 
     respond_to do |format|
-      if @room.update_attributes(params[:room])
+      if result
         format.html { redirect_to @room, notice: 'Room was successfully updated.' }
         format.json { head :no_content }
       else
@@ -72,8 +82,11 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
-    @room = Room.find(params[:id])
-    @room.destroy
+    Room.transaction do
+      @room = Room.available.find(params[:id])
+      @room.soft_delete
+      create_audit(:ROOMDESTROY, room_id: @room.id, user_id: current_user.id)
+    end
 
     respond_to do |format|
       format.html { redirect_to rooms_url }

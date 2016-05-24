@@ -28,6 +28,11 @@ When /^I go to my profile edit page$/ do
   click_link "Edit Profile"
 end
 
+When /^I go to the profile of "(.*?)"$/ do |email|
+  u = User.find_by_email(email)
+  visit "/users/#{u.id}"
+end
+
 When /^I go to the profile edit page of "(.*?)"$/ do |email|
   u = User.find_by_email(email)
   visit "/users/#{u.id}/edit"
@@ -56,4 +61,8 @@ end
 Then(/^when (.+?) I should get a 403 error\.$/) do |action|
   lambda { step action }.should \
     raise_error(ApplicationController::ForbiddenException)
+end
+
+Then(/^I should get an HTTP (\d+) error$/) do |error_code|
+  page.status_code.should == error_code.to_i
 end

@@ -24,9 +24,7 @@ class ApplicationController < ActionController::Base
 
   def administrator_only_access
     unless user_signed_in? && current_user.admin?
-      # render :forbidden
       raise ApplicationController::ForbiddenException
-      #render text: "Testing"
     end
   end
 end

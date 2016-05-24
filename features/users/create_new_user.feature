@@ -25,7 +25,7 @@ Feature: an admin wants sign up a new user
     Given I am registered as admin user "root@example.com" with password "password"
     And I am not registered as "new_nonadmin_user@example.com"
     When I logon as "root@example.com" with password "password"
-    And I sign up with name "Joe" "Schmo", email "new_nonadmin_user@example.com", and password "password"
+    And I sign up with name "Joe" "Schmo", email "new_nonadmin_user@example.com", and password "pass1word2"
     Then I should be registered as "new_nonadmin_user@example.com" and not confirmed
     And I should be on the users page
     And I should see "A message with a confirmation link has been sent to Joe Schmo at new_nonadmin_user@example.com. Joe will have to click the included link to activate their account."

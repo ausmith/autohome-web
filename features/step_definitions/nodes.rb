@@ -36,17 +36,5 @@ Given /^I have node "(.*?)" attached to rooms "(.*?)"$/ do |node, rooms|
 end
 
 Given /^at least one node exists$/ do
-  n = Node.first;
-  
-  if( n == nil )
-    n = Node.new
-    n.id = 1
-    n.mac_address = "01:23:45:67:89:ab"
-    n.ip_address = "172.24.4.1"
-    n.status = 1
-    n.take_offline = false
-    n.last_online = "2013-10-05 18:22:15"
-    n.room_ids = [ 1 ]
-    n.save    
-  end
+  FactoryGirl.create(:node) if !Node.first
 end
